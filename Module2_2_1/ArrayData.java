@@ -12,7 +12,7 @@ public class ArrayData {
     int maxneg = 0;
     double multip = 1;
     double modulus;
-      int secondLargNum = digitArray[0];
+    int secondLargNum = digitArray[0];
 
     public void result() {
         for (int i = 0; i < digitArray.length; i++) {
