@@ -66,7 +66,7 @@ public class ArrayData {
             }
         }
         if (maxneg == null) {
-            System.out.println("Отрицательных нет");
+            System.out.println("Отрицательных чисел в массиве нет");
         } else {
             System.out.println("Максимальное отрицательное значение массива составляет: " + maxneg);
         }
