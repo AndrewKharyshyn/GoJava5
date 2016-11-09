@@ -1,7 +1,5 @@
 package Module_3_3_1;
 
-import java.math.BigDecimal;
-
 /**
  * Created by Andrew on 07.11.2016.
  */

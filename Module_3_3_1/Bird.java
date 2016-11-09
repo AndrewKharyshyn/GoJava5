@@ -5,7 +5,9 @@ package Module_3_3_1;
  */
 public class Bird {
 
+    String univ = "I am ";
+
     public void sing (){
-        System.out.println("I am walking\n" + "I am flying\n" + "I am singing\n"+"I am Bird");
+        System.out.println(univ+"walking\n" + univ+"flying\n" + univ+"singing\n"+univ+"Bird");
     }
 }
