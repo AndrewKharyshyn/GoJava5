@@ -1,34 +1,37 @@
 package Module_4_4_1;
-import java.util.Currency;
-/**
- * Created by Andrew on 19.11.2016.
- */
+
+import Module_4_4_2.Currency;
+
 public abstract class Bank {
 
     long id;
     String bankCountry;
-    Currency currency;
     int numberOfEmployees;
     double avrSalaryOfEmployee;
     long rating;
     long totalCapital;
+    Currency currency;
 
-    abstract int getLimitOfWithdrawal();
-    abstract int getLimitOfFunding();
-    abstract int getMonthlyRate();
-    abstract int getCommission(int summ);
-    double moneyPaidMonthlyForSalary(){
-      return 0;
+    public abstract int getLimitOfWithdrawal();
+
+    public abstract int getLimitOfFunding();
+
+    public abstract int getMonthlyRate();
+
+    public abstract int getCommission(int withdrawalSum);
+
+    double moneyPaidMonthlyForSalary() {
+        return 0;
     }
 
-    public Bank(long id, String bankCountry, Currency currency, int numberOfEmployees, double avrSalaryOfEmployee, long rating, long totalCapital) {
+    public Bank(long id, String bankCountry, int numberOfEmployees, double avrSalaryOfEmployee, long rating, long totalCapital, Currency currency) {
         this.id = id;
         this.bankCountry = bankCountry;
-        this.currency = currency;
         this.numberOfEmployees = numberOfEmployees;
         this.avrSalaryOfEmployee = avrSalaryOfEmployee;
         this.rating = rating;
         this.totalCapital = totalCapital;
+        this.currency = currency;
     }
 
     public long getId() {

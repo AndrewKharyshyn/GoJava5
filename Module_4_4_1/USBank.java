@@ -1,33 +1,63 @@
 package Module_4_4_1;
 
-import java.util.Currency;
 
-/**
- * Created by Andrew on 19.11.2016.
- */
+import Module_4_4_2.Currency;
+
 public class USBank extends Bank {
+
     @Override
-    int getMonthlyRate() {
-        return 0;
+    public int getMonthlyRate() {
+        switch (currency) {
+            case USD:
+                return 1;
+            case EUR:
+                return 2;
+            default:
+                return 0;
+        }
     }
 
     @Override
-    int getLimitOfFunding() {
-        return 0;
+    public int getLimitOfFunding() {
+        switch (currency) {
+            case USD:
+                return 0;
+            case EUR:
+                return 10000;
+            default: return 0;
+        }
     }
 
     @Override
-    int getLimitOfWithdrawal() {
-        return 0;
+    public int getLimitOfWithdrawal() {
+        switch (currency) {
+            case USD:
+                return 1000;
+            case EUR:
+                return 1200;
+            default:
+                return 0;
+        }
     }
 
     @Override
-    int getCommission(int summ) {
-        return 0;
+    public int getCommission(int withdrawalSum) {
+        if (withdrawalSum < 0) {
+            System.out.println("Incorrect value");
+            return 0;
+        }
+        switch (currency) {
+            case USD:
+                return withdrawalSum > 1000 ? 7 : 5;
+            case EUR:
+                return withdrawalSum > 1000 ? 8 : 6;
+            default:
+                return 0;
+        }
     }
 
-    public USBank(long id, String bankCountry, Currency currency, int numberOfEmployees, double avrSalaryOfEmployee, long rating, long totalCapital) {
-        super(id, bankCountry, currency, numberOfEmployees, avrSalaryOfEmployee, rating, totalCapital);
+    public USBank(long id, String bankCountry, int numberOfEmployees, double avrSalaryOfEmployee, long rating, long totalCapital, Currency currency) {
+        super(id, bankCountry, numberOfEmployees, avrSalaryOfEmployee, rating, totalCapital, currency);
     }
 }
 
