@@ -1,77 +1,62 @@
 package Module_4_4_1;
 
-import java.util.Currency;
-
-import static Module_4_4_2.Currency.EUR;
-import static Module_4_4_2.Currency.USD;
+import Module_4_4_2.Currency;
 
 public class ChinaBank extends Bank {
 
-    int withdrawalSum;
-    Module_4_4_2.Currency currency;
-    int fundingLimit;
-    int monthlyRate;
-    int commission;
-    int withdrawalLimit;
+    public ChinaBank(long id, String bankCountry, int numberOfEmployees, double avrSalaryOfEmployee, long rating, long totalCapital, Currency currency) {
+        super(id, bankCountry, numberOfEmployees, avrSalaryOfEmployee, rating, totalCapital, currency);
+    }
 
     @Override
-    int getMonthlyRate() {
+    public int getMonthlyRate() {
         switch (currency) {
-            case USD: monthlyRate = 1;
-                break;
-            case EUR: monthlyRate = 0;
-                break;
+            case USD:
+                return 1;
+            case EUR:
+                return 0;
+            default:
+                return 0;
         }
-        return monthlyRate;
     }
 
     @Override
-    int getLimitOfFunding() {
+    public int getLimitOfFunding() {
         switch (currency) {
-            case USD: fundingLimit = 10000;
-                break;
-            case EUR: fundingLimit = 5000;
-                break;
+            case USD:
+                return 10000;
+            case EUR:
+                return 5000;
+            default: return 0;
         }
-        return fundingLimit;
     }
 
     @Override
-    int getLimitOfWithdrawal() {
+    public int getLimitOfWithdrawal() {
         switch (currency) {
-            case USD: withdrawalLimit = 100;
-                break;
-            case EUR: withdrawalLimit = 150;
-                break;
+            case USD:
+                return 100;
+            case EUR:
+                return 150;
+            default:
+                return 0;
         }
-        return withdrawalLimit;
     }
 
     @Override
-    int getCommission(int withdrawalSum) {
-        if ((currency) == USD && withdrawalSum < 1000) {
-            commission = 3;
+    public int getCommission(int withdrawalSum) {
+        if (withdrawalSum < 0) {
+            System.out.println("Incorrect value. Your input sum is less than 0");
+            return 0;
         }
-        if ((currency) == USD && withdrawalSum > 1000) {
-            commission = 5;
+        switch (currency) {
+            case USD:
+                return withdrawalSum > 1000 ? 5 : 3;
+            case EUR:
+                return withdrawalSum > 1000 ? 11 : 10;
+            default:
+                return 0;
         }
-        if ((currency) == EUR && withdrawalSum < 1000) {
-            commission = 10;
-        }
-        if ((currency) == EUR && withdrawalSum > 1000) {
-            commission = 11;
-        }
-        return commission;
-    }
-
-    public ChinaBank(long id, String bankCountry, int numberOfEmployees, double avrSalaryOfEmployee, long rating, long totalCapital, int withdrawalSum, Module_4_4_2.Currency currency, int fundingLimit, int monthlyRate, int commission, int withdrawalLimit) {
-        super(id, bankCountry, numberOfEmployees, avrSalaryOfEmployee, rating, totalCapital);
-        this.withdrawalSum = withdrawalSum;
-        this.currency = currency;
-        this.fundingLimit = fundingLimit;
-        this.monthlyRate = monthlyRate;
-        this.commission = commission;
-        this.withdrawalLimit = withdrawalLimit;
     }
 }
 

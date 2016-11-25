@@ -11,11 +11,11 @@ import Module_4_4_4.BankSystemImpl;
 public class Main {
     public static void main(String[] args) {
         USBank usBank1 = new USBank(1,"USA", 2541,550,25,9580000,Currency.USD);
-        USBank usBank2 = new USBank(1,"USA", 2541,550,25,9580000,0,Currency.EUR, 0,0,0,0);
-        EUBank euBank1 = new EUBank(2,"Germany", 1800,380,10,7000000,0,Currency.USD, 0,0,0,0);
-        EUBank euBank2 = new EUBank(2,"Germany", 1800,380,10,7000000,0,Currency.EUR, 0,0,0,0);
-        ChinaBank chinaBank1 = new ChinaBank(3,"China", 7200,1250,12,12540000,0,Currency.USD, 0,0,0,0);
-        ChinaBank chinaBank2 = new ChinaBank(3,"China", 7200,1250,12,12540000,0,Currency.EUR, 0,0,0,0);
+        USBank usBank2 = new USBank(1,"USA", 2541,550,25,9580000,Currency.EUR);
+        EUBank euBank1 = new EUBank(2,"Germany", 1800,380,10,7000000,Currency.USD);
+        EUBank euBank2 = new EUBank(2,"Germany", 1800,380,10,7000000,Currency.EUR);
+        ChinaBank chinaBank1 = new ChinaBank(3,"China", 7200,1250,12,12540000,Currency.USD);
+        ChinaBank chinaBank2 = new ChinaBank(3,"China", 7200,1250,12,12540000,Currency.EUR);
         User user1 = new User (1, "Svitlana", 1550, 7, "Formag Forwarding", 550, usBank1);
         User user2 = new User (2, "Andriy", 2800, 3, "DEPS Ukraine", 850, usBank2);
         User user3 = new User (3, "Alex", 7200, 2, "MSI", 200, euBank1);

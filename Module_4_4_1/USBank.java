@@ -43,7 +43,7 @@ public class USBank extends Bank {
     @Override
     public int getCommission(int withdrawalSum) {
         if (withdrawalSum < 0) {
-            System.out.println("Incorrect value");
+            System.out.println("Incorrect value. Your input sum is less than 0");
             return 0;
         }
         switch (currency) {
