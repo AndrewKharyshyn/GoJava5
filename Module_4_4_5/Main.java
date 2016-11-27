@@ -5,6 +5,7 @@ import Module_4_4_1.EUBank;
 import Module_4_4_1.USBank;
 import Module_4_4_2.Currency;
 import Module_4_4_3.User;
+import Module_4_4_4.BankSystem;
 import Module_4_4_4.BankSystemImpl;
 
 
@@ -22,14 +23,14 @@ public class Main {
         User user4 = new User(4, "Iryna", 2500, 4, "Focus", 400, euBank2);
         User user5 = new User(5, "Igor", 1470, 14, "Everest", 480, chinaBank1);
         User user6 = new User(6, "Sergei", 2100, 1, "P&G", 1100, chinaBank2);
-        BankSystemImpl bankSystem = new BankSystemImpl();
+        BankSystem bankSystem = new BankSystemImpl();
 
 
         System.out.println("User 1 Data:");
         bankSystem.transferMoney(user1, user6, 150);
         bankSystem.fundUser(user1, 2890);
         bankSystem.paySalary(user1);
-        bankSystem.withdrawOfUser(user1, 15800);
+        bankSystem.withdrawOfUser(user1, 20);
         System.out.println();
 
         System.out.println("User 2 Data:");
@@ -40,21 +41,21 @@ public class Main {
         System.out.println();
 
         System.out.println("User 3 Data:");
-        bankSystem.transferMoney(user3, user4, 1520);
+        bankSystem.transferMoney(user3, user1, 1520);
         bankSystem.fundUser(user3, 250);
         bankSystem.paySalary(user3);
         bankSystem.withdrawOfUser(user3, 13280);
         System.out.println();
 
         System.out.println("User 4 Data:");
-        bankSystem.transferMoney(user4, user5, 258);
+        bankSystem.transferMoney(user4, user2, 258);
         bankSystem.fundUser(user4, 9870);
         bankSystem.paySalary(user4);
         bankSystem.withdrawOfUser(user4, 5500);
         System.out.println();
 
         System.out.println("User 5 Data:");
-        bankSystem.transferMoney(user5, user6, 750);
+        bankSystem.transferMoney(user5, user3, 750);
         bankSystem.fundUser(user5, 1200);
         bankSystem.paySalary(user5);
         bankSystem.withdrawOfUser(user5, 800);

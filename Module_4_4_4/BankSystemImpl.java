@@ -8,9 +8,10 @@ public class BankSystemImpl implements BankSystem {
 
     @Override
     public void transferMoney(User fromUser, User toUser, int withdrawalSum) {
-        //if (fromUser.getBank().getCurrency()!== toUser.getBank().getCurrency()){
-        //   System.out.println("Incompatible currency types of users.  Money transfer impossible.");
-        // }
+        if (fromUser.getBank().getCurrency()!= toUser.getBank().getCurrency()){
+           System.out.println("Incompatible currency types of users.  Money transfer impossible.");
+            return;
+        }
         if (withdrawalSum < fromUser.getBalance()) {
             fromUser.setBalance(fromUser.getBalance() - withdrawalSum);
             toUser.setBalance(toUser.getBalance() + withdrawalSum);
@@ -23,12 +24,25 @@ public class BankSystemImpl implements BankSystem {
 
     @Override
     public void withdrawOfUser(User user, int withdrawalSum) {
-        if (withdrawalSum > 0 && withdrawalSum <= user.getBank().getLimitOfWithdrawal() && withdrawalSum + (user.getBank().getCommission(withdrawalSum) / 100) * withdrawalSum <= user.getBalance()) {
-            user.setBalance(user.getBalance() - withdrawalSum - (user.getBank().getCommission(withdrawalSum) / 100) * withdrawalSum);
-            System.out.println("Withdrawal sum: " + withdrawalSum + " " + user.getBank().getCurrency() + ". New balance: " + user.getBalance() + " " + user.getBank().getCurrency());
+        boolean error = false;
+
+        if (withdrawalSum <= 0) {
+            System.out.println("Input sum incorrect");
+            error = true;
         }
-        if (withdrawalSum > user.getBalance()) {
-            System.out.println("Insufficient balance. Withdrawal impossible.");
+        if (withdrawalSum > user.getBank().getLimitOfWithdrawal()) {
+            System.out.println("Withdrawal sum over limit");
+            error = true;
+        }
+        double commission = (user.getBank().getCommission(withdrawalSum) / 100.) * withdrawalSum;
+
+        if (withdrawalSum + commission > user.getBalance()) {
+            System.out.println("Insufficient balance");
+            error = true;
+        }
+        if (!error) {
+            user.setBalance(user.getBalance() - withdrawalSum - commission);
+            System.out.println("Withdrawal sum: " + withdrawalSum + " " + user.getBank().getCurrency() + ". New balance: " + user.getBalance() + " " + user.getBank().getCurrency());
         }
     }
 
