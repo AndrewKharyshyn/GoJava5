@@ -23,16 +23,15 @@ public class BankSystemImpl implements BankSystem {
 
     @Override
     public void withdrawOfUser(User user, int withdrawalSum) {
-        if (withdrawalSum > 0 && withdrawalSum <= user.getBank().getLimitOfWithdrawal()) {
+        if (withdrawalSum > 0 && withdrawalSum <= user.getBank().getLimitOfWithdrawal() && withdrawalSum + (user.getBank().getCommission(withdrawalSum) / 100) * withdrawalSum <= user.getBalance()) {
             user.setBalance(user.getBalance() - withdrawalSum - (user.getBank().getCommission(withdrawalSum) / 100) * withdrawalSum);
             System.out.println("Withdrawal sum: " + withdrawalSum + " " + user.getBank().getCurrency() + ". New balance: " + user.getBalance() + " " + user.getBank().getCurrency());
-            if (withdrawalSum > user.getBalance()) {
-                System.out.println("Insufficient balance. Withdrawal impossible.");
-            }
-        } else {
-            System.out.println("Withdrawal operation impossible.");
+        }
+        if (withdrawalSum > user.getBalance()) {
+            System.out.println("Insufficient balance. Withdrawal impossible.");
         }
     }
+
 
     @Override
     public void paySalary(User user) {
@@ -42,15 +41,14 @@ public class BankSystemImpl implements BankSystem {
 
     @Override
     public void fundUser(User user, int fundingSum) {
-        if (fundingSum > 0 && fundingSum <= user.getBank().getLimitOfFunding()) {
+        if ((fundingSum > 0 && fundingSum <= user.getBank().getLimitOfFunding()) || user.getBank().getLimitOfFunding() == 0) {
             user.setBalance(user.getBalance() + fundingSum);
             System.out.println("User funding: " + fundingSum + " " + user.getBank().getCurrency() + ". New balance: " + user.getBalance() + "." + " " + user.getBank().getCurrency());
         }
         if (fundingSum <= 0) {
             System.out.println("Error. Input sum incorrect. Funding operation impossible.");
         }
-
-        if (fundingSum > user.getBank().getLimitOfFunding()) {
+        if (fundingSum > user.getBank().getLimitOfFunding() && user.getBank().getLimitOfFunding() != 0) {
             System.out.println("Funding sum over limit. Operation impossible.");
         }
     }

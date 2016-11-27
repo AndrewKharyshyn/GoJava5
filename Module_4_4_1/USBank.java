@@ -24,7 +24,8 @@ public class USBank extends Bank {
                 return 0;
             case EUR:
                 return 10000;
-            default: return 0;
+            default:
+                return 0;
         }
     }
 

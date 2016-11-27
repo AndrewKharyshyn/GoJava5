@@ -25,7 +25,8 @@ public class ChinaBank extends Bank {
                 return 10000;
             case EUR:
                 return 5000;
-            default: return 0;
+            default:
+                return 0;
         }
     }
 

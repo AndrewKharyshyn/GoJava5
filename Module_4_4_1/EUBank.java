@@ -25,7 +25,8 @@ public class EUBank extends Bank {
                 return 10000;
             case EUR:
                 return 20000;
-            default: return 0;
+            default:
+                return 0;
         }
     }
 
