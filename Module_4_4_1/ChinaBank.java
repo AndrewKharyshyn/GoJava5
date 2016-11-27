@@ -13,8 +13,6 @@ public class ChinaBank extends Bank {
         switch (currency) {
             case USD:
                 return 1;
-            case EUR:
-                return 0;
             default:
                 return 0;
         }
