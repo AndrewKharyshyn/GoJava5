@@ -1,7 +1,5 @@
 package Module_5;
 
-import java.util.Date;
-
 public class Room {
    private long id;
     private int price;
@@ -37,6 +35,17 @@ public class Room {
         result = 31 * result + persons;
         result = 31 * result + (cityName != null ? cityName.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Room "+
+                "id= " + id +
+                ", price= " + price +
+                ", persons= " + persons +
+                ", hotelName= " + hotelName + '\'' +
+                ", cityName='" + cityName + '\'' +
+                '}';
     }
 
     public long getId() {

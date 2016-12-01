@@ -16,9 +16,9 @@ public class Controller {
             Room[] roomTemp = apis[i].findRooms(price, persons, city, hotel);
             for (int j = 0; j < roomTemp.length; j++) {
                 result[counter++] = roomTemp[j];
+                System.out.println(roomTemp[j]);
             }
         }
-
         return result;
     }
 
@@ -27,13 +27,18 @@ public class Controller {
         Room[] temp1 = api1.findRooms(0, 0, null, null);
         Room[] temp2 = api2.findRooms(0, 0, null, null);
         for (int i = 0, count = 0; i < temp1.length; i++) {
+            if (temp1[i] == null) {
+                break;
+            }
             for (int j = 0; j < temp2.length; j++) {
-                if (temp1[i].equals(temp2[j])){
+                if (temp2[j] == null) {
+                    break;
+                }
+                if (temp1[i].equals(temp2[j])) {
                     checkResult[count++] = temp1[i];
                 }
             }
         }
-
         return checkResult;
     }
 }

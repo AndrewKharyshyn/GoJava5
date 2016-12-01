@@ -16,9 +16,8 @@ public class GoogleAPI implements API {
     public Room[] findRooms(int price, int persons, String city, String hotel) {
         Room[] foundRooms = new Room[rooms.length];
         for (int i = 0, count = 0; i < rooms.length; i++) {
-            if (price <= rooms[i].getPrice() && persons >= rooms[i].getPersons() && city.equals(rooms[i].getCityName()) && hotel.equals(rooms[i].getHotelName()));
-                foundRooms [count++] = rooms[i];
-            System.out.println(foundRooms);
+            if (price >= rooms[i].getPrice() && persons <= rooms[i].getPersons() && city.equals(rooms[i].getCityName()) && hotel.equals(rooms[i].getHotelName()))
+                foundRooms[count++] = rooms[i];
         }
         return foundRooms;
     }
