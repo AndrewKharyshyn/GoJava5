@@ -25,7 +25,8 @@ public class Room {
 
         if (price != room.price) return false;
         if (persons != room.persons) return false;
-        return cityName != null ? cityName.equals(room.cityName) : room.cityName == null;
+        if (!hotelName.equals(room.hotelName)) return false;
+        return cityName.equals(room.cityName);
 
     }
 
@@ -33,19 +34,19 @@ public class Room {
     public int hashCode() {
         int result = price;
         result = 31 * result + persons;
-        result = 31 * result + (cityName != null ? cityName.hashCode() : 0);
+        result = 31 * result + hotelName.hashCode();
+        result = 31 * result + cityName.hashCode();
         return result;
     }
 
     @Override
     public String toString() {
-        return "Room "+
-                "id= " + id +
-                ", price= " + price +
-                ", persons= " + persons +
-                ", hotelName= " + hotelName + '\'' +
-                ", cityName='" + cityName + '\'' +
-                '}';
+        return "Room: "+
+                "id = " + id +
+                ", price = " + price +
+                ", persons = " + persons +
+                ", hotelName = " + hotelName +
+                ", cityName = " + cityName;
     }
 
     public long getId() {

@@ -5,11 +5,11 @@ public class GoogleAPI implements API {
     private Room[] rooms = new Room[5];
 
     public GoogleAPI() {
-        rooms[0] = new Room(581, 100, 1, "Beijing", "Beijing International Hotel");
-        rooms[1] = new Room(482, 75, 1, "Toronto", "New Canada");
-        rooms[2] = new Room(453, 435, 1, "New York", "Plaza");
-        rooms[3] = new Room(421, 520, 4, "Kyiv", "President Hotel");
-        rooms[4] = new Room(578, 100, 2, "Kyiv", "Hyyatt");
+        rooms[0] = new Room(581, 100, 1, "Beijing International Hotel", "Beijing");
+        rooms[1] = new Room(482, 75, 1, "New Canada", "Toronto");
+        rooms[2] = new Room(453, 435, 1, "Plaza", "New York");
+        rooms[3] = new Room(421, 520, 4, "President Hotel", "Kyiv");
+        rooms[4] = new Room(578, 100, 2, "Hyyatt", "Kyiv");
     }
 
     @Override
