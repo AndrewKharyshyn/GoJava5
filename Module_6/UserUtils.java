@@ -6,29 +6,16 @@ public class UserUtils {
 
     User[] uniqueUsers(User[] users) {
 
-        User[] uniqueUsers = new User[users.length];
-
         System.out.println();
         Arrays.sort(users);
 
-        for (int k = 0; k < users.length - 1; k++) {
-            if (users[k].getId() == users[k + 1].getId() && users[k].getFirstName().equals(users[k + 1].getFirstName())
-                    && users[k].getLastName().equals(users[k + 1].getLastName())
-                    && users[k].getBalance() == users[k + 1].getBalance() && users[k].getSalary() == users[k + 1].getSalary()) {
-                uniqueUsers[k] = null;
-                uniqueUsers[k + 1] = users[k + 1];
-            }
-            if (users[k].getId() != users[k + 1].getId() || !users[k].getFirstName().equals(users[k + 1].getFirstName())
-                    || !users[k].getLastName().equals(users[k + 1].getLastName())
-                    || users[k].getBalance() != users[k + 1].getBalance() || users[k].getSalary() != users[k + 1].getSalary()) {
-                uniqueUsers[k] = users[k];
+        for (int k = 0; k < users.length - 2; k++) {
+            if (users[k].equals(users[k + 1])) {
+                users[k] = null;
             }
         }
         System.out.println("Array of unique users:");
-        System.out.println(Arrays.toString(uniqueUsers));
-        for (int i = 0; i < uniqueUsers.length; i++) {
-            users[i] = uniqueUsers[i];
-        }
+        System.out.println(Arrays.toString(users));
         return null;
     }
 
@@ -67,23 +54,18 @@ public class UserUtils {
         int counter = 0;
         for (int i = 0; i < users.length; i++) {
             if (users[i] == null) {
-                counter = counter + 1;
+                ++counter;
             }
         }
         User[] newUser = new User[users.length - counter];
 
-        int k = 0;
-
-        for (int i = 0, j = 0; i < newUser.length; i++, j++) {
-            if (users[i] == null) {
-                k= i;
-            }
+        for (int i = 0, j = 0; i < users.length; i++) {
             if (users[i] != null) {
-                newUser[j] = users[i];
+                newUser[j++] = users[i];
             }
         }
         System.out.println(Arrays.toString(newUser));
-        return null;
+        return newUser;
     }
 }
 

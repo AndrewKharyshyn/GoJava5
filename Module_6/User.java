@@ -3,11 +3,11 @@ package Module_6;
 public class User implements Comparable<User> {
 
     private long id;
-    private String lastName,firstName;
+    private String lastName, firstName;
     private int salary;
     private int balance;
 
-    public User(long id, String lastName,String firstName, int salary, int balance) {
+    public User(long id, String lastName, String firstName, int salary, int balance) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;

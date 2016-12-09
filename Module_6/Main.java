@@ -5,7 +5,6 @@ public class Main {
 
         ArraysUtils.digitArray = new int[]{13, 72, 16, 11, -7, 118, 21, 8, -6, 64};
 
-
         User user1 = new User(3, "Davidov", "Ruslan", 5500, 1800);
         User user2 = new User(6, "Kovalska", "Anna", 2000, 300);
         User user3 = new User(1, "Maksimchuk", "Iryna", 2500, 1000);
