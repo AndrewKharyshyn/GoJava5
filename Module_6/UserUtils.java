@@ -72,9 +72,14 @@ public class UserUtils {
         }
         User[] newUser = new User[users.length - counter];
 
-        for (int i = 0; i < newUser.length; i++) {
+        int k = 0;
+
+        for (int i = 0, j = 0; i < newUser.length; i++, j++) {
+            if (users[i] == null) {
+                k= i;
+            }
             if (users[i] != null) {
-                newUser[i] = users[i];
+                newUser[j] = users[i];
             }
         }
         System.out.println(Arrays.toString(newUser));
