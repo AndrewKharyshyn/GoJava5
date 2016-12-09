@@ -1,7 +1,5 @@
 package Module_6;
 
-import java.util.Comparator;
-
 public class User implements Comparable<User> {
 
     private long id;
@@ -44,12 +42,13 @@ public class User implements Comparable<User> {
 
     @Override
     public String toString() {
-        return "User " +
+        return "\nUser " +
                 "id = " + id +
                 ", firstName = " + firstName +
                 ", lastName = " + lastName +
                 ", salary = " + salary +
-                ", balance = " + balance;
+                ", balance = " + balance +
+                "\n";
     }
 
     public long getId() {
@@ -94,7 +93,7 @@ public class User implements Comparable<User> {
 
     @Override
     public int compareTo(User o) {
-        if (o.getId() < this.getId()) {
+        if (o.getId() > this.getId()) {
             return -1;
         }
         return 0;
