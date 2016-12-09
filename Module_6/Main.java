@@ -3,12 +3,12 @@ package Module_6;
 public class Main {
     public static void main(String[] args) {
 
-        ArraysUtils.digitArray = new int[] {13,72,16, 11, -7, 118,21,8,-6, 64};
-        User user1 = new User(1, "Davidov", "Ruslan", 5500, 1800);
-        User user2 = new User(2, "Kovalska", "Anna", 2000, 300);
-        User user3 = new User(3, "Maksimchuk", "Iryna", 2500, 1000);
+        ArraysUtils.digitArray = new int[]{13, 72, 16, 11, -7, 118, 21, 8, -6, 64};
+        User user1 = new User(3, "Davidov", "Ruslan", 5500, 1800);
+        User user2 = new User(5, "Kovalska", "Anna", 2000, 300);
+        User user3 = new User(1, "Maksimchuk", "Iryna", 2500, 1000);
         User user4 = new User(4, "Fedorchuk", "Natalia", 500, 800);
-        User user5 = new User(5, "Kushnir", "Vitaliy", 1250, 450);
+        User user5 = new User(2, "Kushnir", "Vitaliy", 1250, 450);
         User user6 = new User(4, "Fedorchuk", "Natalia", 500, 800);
 
         User[] users = new User[6];
@@ -32,7 +32,22 @@ public class Main {
         System.out.println();
 
         UserUtils userUtils = new UserUtils();
+        System.out.println();
+
+        System.out.println("Users with conditional balance:");
+        userUtils.usersWithConditionalBalance(users, 250);
+        System.out.println();
+
+        System.out.println("Salary payment:");
+        userUtils.paySalaryToUsers(users);
+        System.out.println();
+
+        System.out.println("Users' ID:");
+        userUtils.getUsersId(users);
+        System.out.println();
+
         userUtils.uniqueUsers(users);
+
 
     }
 }
