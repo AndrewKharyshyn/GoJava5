@@ -2,7 +2,7 @@ package Module_7;
 
 import java.util.Currency;
 
-public class Order{
+public class Order implements Comparable<Order> {
 
     private long id;
     private int price;
@@ -20,7 +20,7 @@ public class Order{
         this.user = user;
     }
 
-    @Override
+   @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -57,6 +57,14 @@ public class Order{
                 ", shopIdentificator='" + shopIdentificator + '\'' +
                 ", user=" + user +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Order o) {
+        if (id > o.getId()) {
+            return 1;
+        }
+        return 0;
     }
 
     public long getId() {

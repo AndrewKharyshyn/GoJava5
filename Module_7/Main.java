@@ -9,6 +9,8 @@ public class Main {
         Currency currency1 = Currency.getInstance("UAH");
         Currency currency2 = Currency.getInstance("USD");
 
+        System.out.println("=================================================");
+
         User user1 = new User(1, "Andriy", "Mykhailov", "Kyiv", 1700);
         User user2 = new User(2, "Olksandr", "Filonenko", "Vinnytsia", 1050);
         User user3 = new User(3, "Dmytro", "Sevruk", "Odesa", 780);
@@ -108,7 +110,8 @@ public class Main {
         System.out.println("Order list without duplicated items:");
         Iterator<Order> iterator = orderList.iterator();
         while (iterator.hasNext()) {
-            if (iterator.next().equals(orderList)) {
+            Order o = iterator.next();
+            if (o.equals(iterator.next())) {
                 iterator.remove();
             }
         }
@@ -117,6 +120,49 @@ public class Main {
             System.out.println("Order ID: " + i.getId() + " Shop: " + i.getShopIdentificator() +
                     " Item name: " + i.getItemName() +
                     " User's city: " + i.getUser().getCity());
+        }
+
+        System.out.println("=================================================");
+        System.out.println("Order list with prices over 1500:");
+        Collections.sort(orderList, byPrice);
+        while (iterator.hasNext()) {
+            Order o = iterator.next();
+            if (o.getPrice() > 1500) {
+                iterator.remove();
+            }
+        }
+
+        for (Order i : orderList) {
+            System.out.println("Order ID: " + i.getId() + " Price: " + i.getPrice() +
+                    " Item name: " + i.getItemName());
+        }
+
+        System.out.println("=================================================");
+
+        System.out.println("Separated orders (USD/UAH):");
+        List<Order> orderListUAH = new ArrayList<>();
+        List<Order> orderListUSD = new ArrayList<>();
+        for (Order i : orderList) {
+            if (i.getCurrency().equals(Currency.getInstance("USD"))) {
+                orderListUSD.add(i);
+            }
+            if (i.getCurrency().equals(Currency.getInstance("UAH"))) {
+                orderListUAH.add(i);
+            }
+        }
+
+        System.out.println("UAH order list:");
+
+        for (Order i : orderListUAH) {
+            System.out.println("Order ID: " + i.getId() +
+                    " Item Name: " + i.getItemName() + " Price: "+i.getPrice() + " " + i.getCurrency());
+        }
+
+        System.out.println("USD order list:");
+
+        for (Order i : orderListUSD) {
+            System.out.println("Order ID: " + i.getId() +
+                    " Item Name: " + i.getItemName() + " Price: "+i.getPrice() + " " + i.getCurrency());
         }
     }
 }

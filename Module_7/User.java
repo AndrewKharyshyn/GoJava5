@@ -1,6 +1,6 @@
 package Module_7;
 
-public class User {
+public class User implements Comparable<User> {
 
     private long id;
     private String firstName;
@@ -50,6 +50,14 @@ public class User {
                 ", city='" + city + '\'' +
                 ", balance=" + balance +
                 '}';
+    }
+
+    @Override
+    public int compareTo(User o) {
+        if (id > o.getId()) {
+            return 1;
+        }
+        return 0;
     }
 
     public long getId() {
