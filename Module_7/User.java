@@ -28,7 +28,6 @@ public class User implements Comparable<User> {
         if (!firstName.equals(user.firstName)) return false;
         if (!lastName.equals(user.lastName)) return false;
         return city.equals(user.city);
-
     }
 
     @Override

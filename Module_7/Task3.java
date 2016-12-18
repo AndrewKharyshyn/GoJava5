@@ -79,12 +79,19 @@ public class Task3 {
         }
 
         System.out.println("=================================================");
-        System.out.println("Searching for Petrov surname...");
+        System.out.println("Searching for surname 'Petrov'...");
 
-        /*for (int i = 0; i <orderList.size() ; i++) {
-            if(orderList.equals("Petrov")){
+        Iterator<Order> iterator = orderSet.iterator();
+        while (iterator.hasNext()) {
+            Order o = iterator.next();
+            if (o.getUser().getLastName().equals("Petrov")) {
+                System.out.println("The Order List contains user 'Petrov'");
+            }
+            if (!o.getUser().getLastName().equals("Petrov")) {
+                System.out.println("No 'Petrov'");
+            }
+        }
 
-            }*/
         System.out.println("=================================================");
         System.out.println("Order with largest price: ");
         System.out.println("ID: " + orderSet.last().getId() + ". Price: " + orderSet.last().getPrice() + " " + orderSet.last().getCurrency());
@@ -92,11 +99,11 @@ public class Task3 {
         System.out.println("=================================================");
         System.out.println("Orders in UAH only: ");
 
-        Iterator<Order> iterator = orderSet.iterator();
-        while (iterator.hasNext()) {
-            Order o = iterator.next();
+        Iterator<Order> iterator2 = orderSet.iterator();
+        while (iterator2.hasNext()) {
+            Order o = iterator2.next();
             if (o.getCurrency().equals(Currency.getInstance("USD"))) {
-                iterator.remove();
+                iterator2.remove();
             }
         }
 
@@ -106,3 +113,4 @@ public class Task3 {
         }
     }
 }
+
