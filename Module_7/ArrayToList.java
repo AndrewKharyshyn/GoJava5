@@ -102,7 +102,7 @@ public class ArrayToList {
     }
 
     public void reverse(ArrayList<Integer> arrayList) {
-        for (int i = 0; i < arrayList.size()/2; i++) {
+        for (int i = 0; i < arrayList.size() / 2; i++) {
             int temp = arrayList.get(i);
             arrayList.set(i, arrayList.get(arrayList.size() - 1 - i));
             arrayList.set(arrayList.size() - 1 - i, temp);
@@ -111,16 +111,14 @@ public class ArrayToList {
     }
 
     public void findEvenElements(ArrayList<Integer> arrayList) {
-        System.out.println("Список с четными числами:");
+        System.out.print("Список с четными числами: ");
         ArrayList<Integer> evenList = new ArrayList<>();
 
-        for (int i = 0, j = 0; i < arrayList.size(); i++, j++) {
-            if (arrayList.get(i) % 2 == 0) {
-                evenList.set(j, arrayList.get(i));
-                if (evenList.get(j) != 0) {
-                    System.out.print(evenList.get(j) + "; ");
-                }
+        for (int i = 0; i < arrayList.size(); i++) {
+            if (arrayList.get(i) % 2 == 0 && arrayList.get(i) != 0) {
+                evenList.add(arrayList.get(i));
             }
         }
+        System.out.print(evenList);
     }
 }

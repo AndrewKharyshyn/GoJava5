@@ -7,8 +7,8 @@ public class ArraysRunner {
     public static void main(String[] args) {
 
         ArrayToList arrays = new ArrayToList();
-        arrays.digitArray = new int[]{13, 72, 16, 11, -7, 118, 21, 8, -6, 64};
-        ArrayList <Integer>arrayList = new ArrayList<>();
+        arrays.digitArray = new int[]{13, 72, 16, 11, -7, 118, 21, 6, -6, 64};
+        ArrayList<Integer> arrayList = new ArrayList<>();
 
         for (int i = 0; i < arrays.digitArray.length; i++) {
             arrayList.add(arrays.digitArray[i]);
@@ -23,8 +23,6 @@ public class ArraysRunner {
         arrays.resultmod(arrayList);
         arrays.secondLargNum(arrayList);
         arrays.reverse(arrayList);
-        //arrays.findEvenElements(arrayList);
-
-
+        arrays.findEvenElements(arrayList);
     }
 }
