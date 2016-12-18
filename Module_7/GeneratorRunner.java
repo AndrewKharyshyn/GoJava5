@@ -14,6 +14,6 @@ public class GeneratorRunner {
         generator.addRandStr();
         generator.addRandStr10K();
         generator.timeCalcStr();
-
+        generator.timeCalcStr10K();
     }
 }

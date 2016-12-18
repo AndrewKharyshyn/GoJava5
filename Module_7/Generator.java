@@ -236,6 +236,179 @@ public class Generator {
     void timeCalcStr() {
         System.out.println("Тестирование команд для списков на 1000 элементов /String/:");
         System.out.println();
+
+        long t1 = System.nanoTime();
+        arrayListStr.add(arrayListStr.size() / 2, "KKKHKJHFHGF");
+        long result1 = System.nanoTime() - t1;
+        System.out.println("Время выполнения команды ADD для ArrayList 1000 (String): " + result1);
+
+        long t2 = System.nanoTime();
+        linkedListStr.add(linkedListStr.size() / 2, "KKKHKJHFHGF");
+        long result2 = System.nanoTime() - t2;
+        System.out.println("Время выполнения команды ADD для LinkedList 1000 (String): " + result2);
+
+        long diff1 = result2 - result1;
+        long diff2 = result1 - result2;
+
+        if (result1 < result2) {
+            System.out.println("ArrayList быстрее на " + diff1 / 1000 + " мкс");
+        }
+        if (result1 > result2) {
+            System.out.println("LinkedList быстрее на " + diff2 / 1000 + " мкс");
+        }
+        System.out.println("================================");
+
+        long t3 = System.nanoTime();
+        arrayListStr.set(arrayListStr.size() / 2, "KKKHKJHFHGF");
+        long result3 = System.nanoTime() - t3;
+        System.out.println("Время выполнения команды SET для ArrayList 1000 (String): " + result3);
+
+        long t4 = System.nanoTime();
+        linkedListStr.set(linkedListStr.size() / 2, "KKKHKJHFHGF");
+        long result4 = System.nanoTime() - t4;
+        System.out.println("Время выполнения команды SET для LinkedList 1000 (String): " + result4);
+
+        long diff3 = result4 - result3;
+        long diff4 = result3 - result4;
+
+        if (result3 < result4) {
+            System.out.println("ArrayList быстрее на " + diff3 / 1000 + " мкс");
+        }
+        if (result3 > result4) {
+            System.out.println("LinkedList быстрее на " + diff4 / 1000 + " мкс");
+        }
+        System.out.println("================================");
+
+        long t5 = System.nanoTime();
+        arrayListStr.get(arrayListStr.size() / 2);
+        long result5 = System.nanoTime() - t5;
+        System.out.println("Время выполнения команды GET для ArrayList 1000 (String): " + result5);
+
+        long t6 = System.nanoTime();
+        linkedListStr.get(linkedListStr.size() / 2);
+        long result6 = System.nanoTime() - t6;
+        System.out.println("Время выполнения команды GET для LinkedList 1000 (String): " + result6);
+
+        long diff5 = result6 - result5;
+        long diff6 = result5 - result6;
+
+        if (result5 < result6) {
+            System.out.println("ArrayList быстрее на " + diff5 / 1000 + " мкс");
+        }
+        if (result5 > result6) {
+            System.out.println("LinkedList быстрее на " + diff6 / 1000 + " мкс");
+        }
+        System.out.println("================================");
+
+        long t7 = System.nanoTime();
+        arrayListStr.remove(arrayListStr.size() / 2);
+        long result7 = System.nanoTime() - t7;
+        System.out.println("Время выполнения команды REMOVE для ArrayList 1000 (String): " + result7);
+
+        long t8 = System.nanoTime();
+        linkedListStr.remove(linkedListStr.size() / 2);
+        long result8 = System.nanoTime() - t6;
+        System.out.println("Время выполнения команды REMOVE для LinkedList 1000 (String): " + result8);
+
+        long diff7 = result8 - result7;
+        long diff8 = result7 - result8;
+
+        if (result7 < result8) {
+            System.out.println("ArrayList быстрее на " + diff7 / 1000 + " мкс");
+        }
+        if (result7 > result8) {
+            System.out.println("LinkedList быстрее на " + diff8 / 1000 + " мкс");
+        }
+        System.out.println("================================");
+    }
+
+    void timeCalcStr10K() {
+        System.out.println("Тестирование команд для списков на 10K элементов /String/:");
+        System.out.println();
+
+        long t1 = System.nanoTime();
+        arrayListStr10K.add(arrayListStr10K.size() / 2, "KKKHKJHFHGF");
+        long result1 = System.nanoTime() - t1;
+        System.out.println("Время выполнения команды ADD для ArrayList 10K (String): " + result1);
+
+        long t2 = System.nanoTime();
+        linkedListStr10K.add(linkedListStr10K.size() / 2, "KKKHKJHFHGF");
+        long result2 = System.nanoTime() - t2;
+        System.out.println("Время выполнения команды ADD для LinkedList 10K (String): " + result2);
+
+        long diff1 = result2 - result1;
+        long diff2 = result1 - result2;
+
+        if (result1 < result2) {
+            System.out.println("ArrayList быстрее на " + diff1 / 1000 + " мкс");
+        }
+        if (result1 > result2) {
+            System.out.println("LinkedList быстрее на " + diff2 / 1000 + " мкс");
+        }
+        System.out.println("================================");
+
+        long t3 = System.nanoTime();
+        arrayListStr10K.set(arrayListStr10K.size() / 2, "KKKHKJHFHGF");
+        long result3 = System.nanoTime() - t3;
+        System.out.println("Время выполнения команды SET для ArrayList 10K (String): " + result3);
+
+        long t4 = System.nanoTime();
+        linkedListStr10K.set(linkedListStr10K.size() / 2, "KKKHKJHFHGF");
+        long result4 = System.nanoTime() - t4;
+        System.out.println("Время выполнения команды SET для LinkedList 10K (String): " + result4);
+
+        long diff3 = result4 - result3;
+        long diff4 = result3 - result4;
+
+        if (result3 < result4) {
+            System.out.println("ArrayList быстрее на " + diff3 / 1000 + " мкс");
+        }
+        if (result3 > result4) {
+            System.out.println("LinkedList быстрее на " + diff4 / 1000 + " мкс");
+        }
+        System.out.println("================================");
+
+        long t5 = System.nanoTime();
+        arrayListStr10K.get(arrayListStr10K.size() / 2);
+        long result5 = System.nanoTime() - t5;
+        System.out.println("Время выполнения команды GET для ArrayList 10K (String): " + result5);
+
+        long t6 = System.nanoTime();
+        linkedListStr10K.get(linkedListStr10K.size() / 2);
+        long result6 = System.nanoTime() - t6;
+        System.out.println("Время выполнения команды GET для LinkedList 10K (String): " + result6);
+
+        long diff5 = result6 - result5;
+        long diff6 = result5 - result6;
+
+        if (result5 < result6) {
+            System.out.println("ArrayList быстрее на " + diff5 / 1000 + " мкс");
+        }
+        if (result5 > result6) {
+            System.out.println("LinkedList быстрее на " + diff6 / 1000 + " мкс");
+        }
+        System.out.println("================================");
+
+        long t7 = System.nanoTime();
+        arrayListStr10K.remove(arrayListStr10K.size() / 2);
+        long result7 = System.nanoTime() - t7;
+        System.out.println("Время выполнения команды REMOVE для ArrayList 10K (String): " + result7);
+
+        long t8 = System.nanoTime();
+        linkedListStr10K.remove(linkedListStr10K.size() / 2);
+        long result8 = System.nanoTime() - t6;
+        System.out.println("Время выполнения команды REMOVE для LinkedList 10K (String): " + result8);
+
+        long diff7 = result8 - result7;
+        long diff8 = result7 - result8;
+
+        if (result7 < result8) {
+            System.out.println("ArrayList быстрее на " + diff7 / 1000 + " мкс");
+        }
+        if (result7 > result8) {
+            System.out.println("LinkedList быстрее на " + diff8 / 1000 + " мкс");
+        }
+        System.out.println("================================");
     }
 }
 
