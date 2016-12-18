@@ -81,33 +81,54 @@ public class Task3 {
         System.out.println("=================================================");
         System.out.println("Searching for surname 'Petrov'...");
 
+        boolean found = false;
         Iterator<Order> iterator = orderSet.iterator();
         while (iterator.hasNext()) {
             Order o = iterator.next();
             if (o.getUser().getLastName().equals("Petrov")) {
-                System.out.println("The Order List contains user 'Petrov'");
+                found = true;
             }
-            if (!o.getUser().getLastName().equals("Petrov")) {
-                System.out.println("No 'Petrov'");
-            }
+        }
+        if (found) {
+            System.out.println("The Order List contains user 'Petrov'");
+        } else {
+            System.out.println("No 'Petrov'");
         }
 
         System.out.println("=================================================");
         System.out.println("Order with largest price: ");
-        System.out.println("ID: " + orderSet.last().getId() + ". Price: " + orderSet.last().getPrice() + " " + orderSet.last().getCurrency());
+        System.out.println("ID: " + orderSet.last().
+
+                getId()
+
+                + ". Price: " + orderSet.last().
+
+                getPrice()
+
+                + " " + orderSet.last().
+
+                getCurrency()
+
+        );
 
         System.out.println("=================================================");
         System.out.println("Orders in UAH only: ");
 
         Iterator<Order> iterator2 = orderSet.iterator();
-        while (iterator2.hasNext()) {
+        while (iterator2.hasNext())
+
+        {
             Order o = iterator2.next();
             if (o.getCurrency().equals(Currency.getInstance("USD"))) {
                 iterator2.remove();
             }
         }
 
-        for (Order i : orderSet) {
+        for (
+                Order i
+                : orderSet)
+
+        {
             System.out.println("Order ID: " + i.getId() + " Price: " + i.getPrice() +
                     " " + i.getCurrency());
         }
