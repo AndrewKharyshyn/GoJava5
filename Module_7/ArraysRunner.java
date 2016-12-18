@@ -1,8 +1,6 @@
 package Module_7;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 
 public class ArraysRunner {
 
@@ -25,7 +23,7 @@ public class ArraysRunner {
         arrays.resultmod(arrayList);
         arrays.secondLargNum(arrayList);
         arrays.reverse(arrayList);
-        /*arrays.findEvenElements(arrayList);*/
+        //arrays.findEvenElements(arrayList);
 
 
     }

@@ -78,8 +78,8 @@ public class ArrayToList {
     }
 
     public void resultmod(ArrayList<Integer> arrayList) {
-        if (arrayList.get(arrayList.size()-1) != 0) {
-            modulus = arrayList.get(0) % (arrayList.get(arrayList.size()-1));
+        if (arrayList.get(arrayList.size() - 1) != 0) {
+            modulus = arrayList.get(0) % (arrayList.get(arrayList.size() - 1));
             System.out.println("Остаток от деления первого на последний элемент списка составляет: " + modulus);
         } else {
             System.out.println("Вычисление невозможно. Деление на НОЛЬ запрещено!");
@@ -102,24 +102,23 @@ public class ArrayToList {
     }
 
     public void reverse(ArrayList<Integer> arrayList) {
-
-        for (int i = 0; i < arrayList.size() / 2; i++) {
+        for (int i = 0; i < arrayList.size()/2; i++) {
             int temp = arrayList.get(i);
-            arrayList.get(i) = arrayList.get(arrayList.size()-1-i);
-            arrayList.get(arrayList.size()-1-i) = temp;
+            arrayList.set(i, arrayList.get(arrayList.size() - 1 - i));
+            arrayList.set(arrayList.size() - 1 - i, temp);
         }
         System.out.println("Инвертированный список: " + arrayList);
     }
 
     public void findEvenElements(ArrayList<Integer> arrayList) {
         System.out.println("Список с четными числами:");
-        
-        int[] evenArray = new int[digitArray.length];
-        for (int i = 0, j = 0; i < digitArray.length; i++, j++) {
-            if (digitArray[i] % 2 == 0) {
-                evenArray[j] = digitArray[i];
-                if (evenArray[j] != 0) {
-                    System.out.print(evenArray[j] + "; ");
+        ArrayList<Integer> evenList = new ArrayList<>();
+
+        for (int i = 0, j = 0; i < arrayList.size(); i++, j++) {
+            if (arrayList.get(i) % 2 == 0) {
+                evenList.set(j, arrayList.get(i));
+                if (evenList.get(j) != 0) {
+                    System.out.print(evenList.get(j) + "; ");
                 }
             }
         }
