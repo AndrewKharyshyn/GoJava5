@@ -14,105 +14,106 @@ public class ArrayToList {
     int secondLargNum;
     int largest;
 
-    public void result() {
+    public void result(ArrayList<Integer> arrayList) {
         for (int i = 0; i < arrayList.size(); i++) {
-            sum += digitArray[i];
+            sum += arrayList.get(i);
         }
-        System.out.println("Сумма всех элементов массива составляет: " + sum);
+        System.out.println("Сумма всех элементов списка составляет: " + sum);
     }
 
-    public void resultmin() {
-        min = digitArray[0];
-        for (int i = 0; i < digitArray.length; i++) {
-            if (digitArray[i] < min) {
-                min = digitArray[i];
+    public void resultmin(ArrayList<Integer> arrayList) {
+        min = arrayList.get(0);
+        for (int i = 0; i < arrayList.size(); i++) {
+            if (arrayList.get(i) < min) {
+                min = arrayList.get(i);
             }
         }
-        System.out.println("Минимальное значение массива составляет: " + min);
+        System.out.println("Минимальное значение списка составляет: " + min);
     }
 
-    public void resultmax() {
-        int max = digitArray[0];
-        for (int i = 0; i < digitArray.length; i++) {
-            if (digitArray[i] > max) {
-                max = digitArray[i];
+    public void resultmax(ArrayList<Integer> arrayList) {
+        int max = arrayList.get(0);
+        for (int i = 0; i < arrayList.size(); i++) {
+            if (arrayList.get(i) > max) {
+                max = arrayList.get(i);
             }
         }
-        System.out.println("Максимальное значение массива составляет: " + max);
+        System.out.println("Максимальное значение списка составляет: " + max);
     }
 
-    public void resultmaxpos() {
-        for (int i = 0; i < digitArray.length; i++) {
-            if (digitArray[i] > maxpos) {
-                maxpos = digitArray[i];
+    public void resultmaxpos(ArrayList<Integer> arrayList) {
+        for (int i = 0; i < arrayList.size(); i++) {
+            if (arrayList.get(i) > maxpos) {
+                maxpos = arrayList.get(i);
             }
         }
         if (maxpos > 0) {
-            System.out.println("Максимальное положительное значение массива составляет: " + maxpos);
+            System.out.println("Максимальное положительное значение списка составляет: " + maxpos);
         }
         if (maxpos <= 0) {
-            System.out.println("В массиве положительные значения отсутствуют.");
+            System.out.println("В списке положительные значения отсутствуют.");
         }
     }
 
-    public void resultmaxneg() {
+    public void resultmaxneg(ArrayList<Integer> arrayList) {
         maxneg = null;
 
-        for (int i = 0; i < digitArray.length; i++) {
-            if (digitArray[i] < 0 && (maxneg == null || digitArray[i] > maxneg)) {
-                maxneg = digitArray[i];
+        for (int i = 0; i < arrayList.size(); i++) {
+            if (arrayList.get(i) < 0 && (maxneg == null || arrayList.get(i) > maxneg)) {
+                maxneg = arrayList.get(i);
             }
         }
         if (maxneg == null) {
-            System.out.println("Отрицательных чисел в массиве нет");
+            System.out.println("Отрицательных чисел в списке нет");
         } else {
-            System.out.println("Максимальное отрицательное значение массива составляет: " + maxneg);
+            System.out.println("Максимальное отрицательное значение списка составляет: " + maxneg);
         }
     }
 
-    public void resultmultip() {
-        for (int i = 0; i < digitArray.length; i++) {
-            multip *= digitArray[i];
+    public void resultmultip(ArrayList<Integer> arrayList) {
+        for (int i = 0; i < arrayList.size(); i++) {
+            multip *= arrayList.get(i);
         }
-        System.out.println("Значение перемножения элементов массива составляет: " + multip);
+        System.out.println("Значение перемножения элементов списка составляет: " + multip);
     }
 
-    public void resultmod() {
-        if (digitArray[digitArray.length - 1] != 0) {
-            modulus = digitArray[0] % (digitArray[digitArray.length - 1]);
-            System.out.println("Остаток от деления первого на последний элемент массива составляет: " + modulus);
+    public void resultmod(ArrayList<Integer> arrayList) {
+        if (arrayList.get(arrayList.size()-1) != 0) {
+            modulus = arrayList.get(0) % (arrayList.get(arrayList.size()-1));
+            System.out.println("Остаток от деления первого на последний элемент списка составляет: " + modulus);
         } else {
             System.out.println("Вычисление невозможно. Деление на НОЛЬ запрещено!");
         }
     }
 
-    public void secondLargNum() {
-        secondLargNum = digitArray[0];
-        largest = digitArray[0];
+    public void secondLargNum(ArrayList<Integer> arrayList) {
+        secondLargNum = arrayList.get(0);
+        largest = arrayList.get(0);
 
-        for (int i = 0; i < digitArray.length; i++) {
-            if (digitArray[i] > largest) {
+        for (int i = 0; i < arrayList.size(); i++) {
+            if (arrayList.get(i) > largest) {
                 secondLargNum = largest;
-                largest = digitArray[i];
-            } else if (secondLargNum < digitArray[i]) {
-                secondLargNum = digitArray[i];
+                largest = arrayList.get(i);
+            } else if (secondLargNum < arrayList.get(i)) {
+                secondLargNum = arrayList.get(i);
             }
         }
-        System.out.println("Второй самый большой элемент массива составляет: " + secondLargNum);
+        System.out.println("Второй самый большой элемент списка составляет: " + secondLargNum);
     }
 
-    public void reverse() {
+    public void reverse(ArrayList<Integer> arrayList) {
 
-        for (int i = 0; i < digitArray.length / 2; i++) {
-            int temp = digitArray[i];
-            digitArray[i] = digitArray[digitArray.length - 1 - i];
-            digitArray[digitArray.length - 1 - i] = temp;
+        for (int i = 0; i < arrayList.size() / 2; i++) {
+            int temp = arrayList.get(i);
+            arrayList.get(i) = arrayList.get(arrayList.size()-1-i);
+            arrayList.get(arrayList.size()-1-i) = temp;
         }
-        System.out.println("Инвертированный массив: " + java.util.Arrays.toString(digitArray));
+        System.out.println("Инвертированный список: " + arrayList);
     }
 
-    public void findEvenElements() {
-        System.out.println("Массив четных чисел:");
+    public void findEvenElements(ArrayList<Integer> arrayList) {
+        System.out.println("Список с четными числами:");
+        
         int[] evenArray = new int[digitArray.length];
         for (int i = 0, j = 0; i < digitArray.length; i++, j++) {
             if (digitArray[i] % 2 == 0) {
