@@ -1,5 +1,8 @@
 package FinalProjectCore;
 
+import sun.security.pkcs11.wrapper.Functions;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -42,7 +45,33 @@ public class Controller {
     }
 
     void actionSelect() {
-
+        System.out.println("Please, choose the required search type in menu below:");
+        System.out.println("\t1. Search by hotel name." +
+                "\n\t2. Search hotel by city" +
+                "\n\t3. Search room by parameters");
+        Scanner sc = new Scanner(System.in);
+        Integer s = sc.nextInt();
+        switch (s) {
+            case 1:
+                System.out.println("Please, enter the hotel name...");
+                Scanner sc1 = new Scanner(System.in);
+                String s1 = sc.nextLine();
+                findHotelByName(s1);
+                break;
+            case 2:
+                System.out.println("Please, enter the city...");
+                Scanner sc2 = new Scanner(System.in);
+                String s2 = sc2.nextLine();
+                findHotelByCity(s2);
+                break;
+            case 3:
+                //findRoom(abstractDAOImpl.addHotelMap());
+                break;
+            default:
+                System.out.println("You have entered incorrect number. Please, retry...");
+                actionSelect();
+                break;
+        }
     }
 
     List<Hotel> findHotelByName(String name) {
@@ -65,8 +94,20 @@ public class Controller {
 
     }
 
-    List<Room> findRoom(Map<String, String> params) {
-
-        return null;
-    }
+    /*List<Room> findRoom(Map<String, String> params) {
+        System.out.println(params);
+        System.out.println("To find rooms, please, choose the city...");
+        Scanner sc = new Scanner(System.in);
+        String s = sc.nextLine();
+        List<String> filteredByCity = params
+                .keySet()
+                .stream()
+                .filter(c -> c.equals(s))
+                .collect(Collectors.toList());
+        /*List<Room> foundRooms = abstractDAOImpl.hotels
+                .stream()
+                .filter(m -> m.getHotelName().equals())
+                .collect(Collectors.toList());
+        return foundRooms;*/
 }
+

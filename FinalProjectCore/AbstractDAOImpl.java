@@ -1,7 +1,9 @@
 package FinalProjectCore;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class AbstractDAOImpl implements AbstractDAO {
     List<User> userList = new ArrayList<>();
@@ -83,4 +85,13 @@ public class AbstractDAOImpl implements AbstractDAO {
     public void addNewUser(long id, String name, String lastName) {
         userList.add(); //Parameters are from Main method
     }*/
+
+    @Override
+    public Map<String, String> addHotelMap() {
+        Map hotelMap = new HashMap<String, String>();
+        hotelMap.put(hotel1.getCity(),hotel1.getHotelName());
+        hotelMap.put(hotel2.getCity(),hotel2.getHotelName());
+        hotelMap.put(hotel3.getCity(),hotel3.getHotelName());
+        return hotelMap;
+    }
 }
