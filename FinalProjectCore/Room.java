@@ -3,17 +3,17 @@ package FinalProjectCore;
 public class Room {
     private long roomId;
     private int persons;
-    private long price;
-    private long hotelId;
+    private double price;
+    private Hotel hotel;
     private boolean hasAdditionalService;
-    private long discount;
+    private double discount;
     private User userReserved;
 
-    public Room(long roomId, int persons, long price, long hotelId, boolean hasAdditionalService, long discount, User userReserved) {
+    public Room(long roomId, int persons, double price, boolean hasAdditionalService, double discount, User userReserved) {
         this.roomId = roomId;
         this.persons = persons;
         this.price = price;
-        this.hotelId = hotelId;
+//        this.hotelId = hotelId;
         this.hasAdditionalService = hasAdditionalService;
         this.discount = discount;
         this.userReserved = userReserved;
@@ -35,20 +35,20 @@ public class Room {
         this.persons = persons;
     }
 
-    public long getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(long price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
-    public long getHotelId() {
-        return hotelId;
+    public Hotel getHotel() {
+        return hotel;
     }
 
-    public void setHotelId(long hotelId) {
-        this.hotelId = hotelId;
+    public void setHotel(Hotel hotel) {
+        this.hotel = hotel;
     }
 
     public boolean isHasAdditionalService() {
@@ -59,11 +59,11 @@ public class Room {
         this.hasAdditionalService = hasAdditionalService;
     }
 
-    public long getDiscount() {
+    public double getDiscount() {
         return discount;
     }
 
-    public void setDiscount(long discount) {
+    public void setDiscount(double discount) {
         this.discount = discount;
     }
 

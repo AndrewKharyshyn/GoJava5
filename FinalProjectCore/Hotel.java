@@ -13,6 +13,9 @@ public class Hotel {
         this.hotelName = hotelName;
         this.city = city;
         this.rooms = rooms;
+        for (Room r: rooms) {
+            r.setHotel(this);
+        }
     }
 
     @Override
