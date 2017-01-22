@@ -9,10 +9,10 @@ public class Controller {
 
     private Scanner scanner = new Scanner(System.in);
 
-    private String getUserInput(String promptMessage, String errorMessage){
+    private String getUserInput(String promptMessage, String errorMessage) {
         System.out.println(promptMessage);
         String userInput = scanner.nextLine();
-        while (userInput.isEmpty()){
+        while (userInput.isEmpty()) {
             System.out.println(errorMessage);
             userInput = scanner.nextLine();
         }
@@ -23,25 +23,19 @@ public class Controller {
         System.out.println("Welcome to the Hotel Booking System!");
         System.out.println("====================================");
         System.out.println();
-        Scanner sc1 = new Scanner(System.in);
         String s1 = getUserInput("Please, input your name...", "Name can not be left blank. Please, input again...");
-        System.out.println("Please, input your last name...");
-        Scanner sc2 = new Scanner(System.in);
-        String s2 = sc2.nextLine();
-
-        if (s2 == null) {
-            System.out.println("Last name can not be left blank. Please, input again...");
-            String s4 = sc2.nextLine();
-        }
+        String s2 = getUserInput("Please, input your last name...", "Last name can not be left blank. Please, input again...");
 
         List<User> users = abstractDAOImpl
                 .getUserList()
                 .stream()
-                .filter(u -> u.getUserName().equals(sc1) && u.getUserLastName().equals(sc2))
+                .filter(u -> u.getUserName().equals(s1) && u.getUserLastName().equals(s2))
                 .collect(Collectors.toList());
 
+        System.out.println(users);
+
         if (users == null) {
-            System.out.println("User does not exist. Please, register  your account to enable search");
+            System.out.println("User does not exist. Please, register your account to enable search");
             System.out.println("Redirecting to the registration server...");
             newUser();
         }
@@ -52,30 +46,19 @@ public class Controller {
     }
 
     void newUser() {
-        System.out.println("User sign up system");
-
+        System.out.println("User's sign up system");
         System.out.println("Please, enter your name...");
-        Scanner sc = new Scanner(System.in);
-        String s = sc.nextLine();
-        if (s == null) {
-            System.out.println("Name can not be left blank. Please, input again...");
-            String s1 = sc.nextLine();
-        }
 
-        System.out.println("Please, enter your last name...");
-        Scanner sc2 = new Scanner(System.in);
-        String s2 = sc.nextLine();
-        if (s2 == null) {
-            System.out.println("Last name can not be left blank. Please, input again...");
-            String s3 = sc.nextLine();
-        }
-        User newUser = new User(findNewUserID(), s, s2); //Creating new User
+        String s1 = getUserInput("Please, input your name...", "Name can not be left blank. Please, input again...");
+        String s2 = getUserInput("Please, input your last name...", "Last name can not be left blank. Please, input again...");
+
+        User newUser = new User(findNewUserID(), s1, s2); //Creating new User
         abstractDAOImpl.getUserList().add(newUser);//Adding new User to the user list
     }
 
     long findNewUserID() {//Used to find the user's max ID in the list
-        int max = abstractDAOImpl.getUserList().size() + 1;
-        return max;
+        int max = abstractDAOImpl.getUserList().size();
+        return max + 1;
     }
 
     void actionSelect() {
@@ -83,19 +66,16 @@ public class Controller {
         System.out.println("\t1. Search by hotel name." +
                 "\n\t2. Search hotel by city" +
                 "\n\t3. Search room by parameters");
-        Scanner sc = new Scanner(System.in);
-        Integer s = sc.nextInt();
+        Integer s = scanner.nextInt();
         switch (s) {
             case 1:
                 System.out.println("Please, enter the hotel name...");
-                Scanner sc1 = new Scanner(System.in);
-                String s1 = sc1.nextLine();
+                String s1 = scanner.nextLine();
                 findHotelByName(s1);
                 break;
             case 2:
                 System.out.println("Please, enter the city...");
-                Scanner sc2 = new Scanner(System.in);
-                String s2 = sc2.nextLine();
+                String s2 = scanner.nextLine();
                 findHotelByCity(s2);
                 break;
             case 3:
@@ -113,6 +93,7 @@ public class Controller {
                 .stream()
                 .filter(m -> m.getHotelName().equals(name))
                 .collect(Collectors.toList());
+       // hotelMap(foundHotels, "hotel");
         return foundHotels;
     }
 
@@ -121,8 +102,16 @@ public class Controller {
                 .stream()
                 .filter(m -> m.getCity().equals(city))
                 .collect(Collectors.toList());
+       // hotelMap(foundHotels, "city");
         return foundHotels;
     }
+
+//    Map<String, String> hotelMap(List<Hotel> searchRes, String searchType) {
+//        Map<String, String> hotelsMap = searchRes
+//                .stream()
+//                .collect(Collectors.toMap("s", searchType));
+//        return hotelsMap;
+//    }
 
     void bookRoom(long roomId, long userId, long hotelId) {
 
@@ -132,8 +121,8 @@ public class Controller {
 
     }
 
-    List<Room> findRoom(Map<String, String> params) {
-//        System.out.println(params);
+
+    //        System.out.println(params);
 //        System.out.println("To find rooms, please, choose the city...");
 //        Scanner sc = new Scanner(System.in);
 //        String s = sc.nextLine();
@@ -157,8 +146,9 @@ public class Controller {
 //        if (select != 1 || select != 2) {
 //            System.out.println("Selected incorrect variant. Please, try again...");
 //        }
+    List<Room> findRoom(Map<String, String> params) {
         Collection<Hotel> hotels = abstractDAOImpl.getHotels();
-        for(Map.Entry<String, String> entry: params.entrySet()) {
+        for (Map.Entry<String, String> entry : params.entrySet()) {
             switch (entry.getKey()) {
                 case "city":
                     hotels.stream().filter(h -> h.getCity().equals(entry.getValue()));
@@ -168,21 +158,24 @@ public class Controller {
                     break;
             }
         }
-        Collection<Room> rooms = new ArrayList<>();
-        hotels.stream().forEach(h -> rooms.addAll(h.getRooms()));
-        for(Map.Entry<String, String> entry: params.entrySet()) {
-            switch (entry.getKey()) {
-                case "city":
-                    hotels.stream().filter(h -> h.getCity().equals(entry.getValue()));
-                    break;
-                case "hotel":
-                    hotels
-                            .stream()
-                            .filter(h -> h.getHotelName().equals(entry.getValue()));
-                    break;
-            }
-        }
-    }
+        return null;
+
+//        List<Room> rooms = new ArrayList<>();
+//        hotels.stream().forEach(h -> rooms.addAll(h.getRooms()));
+//        for (Map.Entry<String, String> entry : params.entrySet()) {
+//            switch (entry.getKey()) {
+//                case "city":
+//                    hotels.stream().filter(h -> h.getCity().equals(entry.getValue()));
+//                    break;
+//                case "hotel":
+//                    hotels
+//                            .stream()
+//                            .filter(h -> h.getHotelName().equals(entry.getValue()));
+//                    break;
+//            }
+//        }
+//        return rooms;
+
 
 //    List<Room> findRoomByParams(List<Room> roomList) {
 //        System.out.println("You can filter rooms by parameters here:");
@@ -191,5 +184,6 @@ public class Controller {
 //        return;
 //
 //    }
+    }
 }
 

@@ -9,7 +9,42 @@ public class AbstractDAOImpl implements AbstractDAO {
     private List<Room> roomsHotel3 = new ArrayList<>();
     private List<Hotel> hotels = new ArrayList<>();
 
-//    Room room1 = new Room(1, 2, 520, true, 0, null);
+    @Override
+    public void addUserTable() {
+        User user1 = new User(1, "Alex", "Melnikov");
+        User user2 = new User(2, "Olga", "Safonova");
+        User user3 = new User(3, "Oleg", "Petrov");
+        userList.add(user1);
+        userList.add(user2);
+        userList.add(user3);
+        System.out.println(userList);
+    }
+
+    @Override
+    public Collection<User> getUsers() {
+        List<User> res = new ArrayList<>(userList.size());
+        Collections.copy(res, userList);
+        return res;
+    }
+
+    @Override
+    public List<User> getUserList() {
+        return userList;
+    }
+
+    private int roomId = 0;
+    private Random random = new Random();
+
+    public Room generateRoom() {
+        double price = random.nextInt(5000) + random.nextInt(100) / 100.;
+        return new Room(++roomId, random.nextInt(6),
+                price,
+                random.nextBoolean(),
+                random.nextInt((int) (price * 0.25)) + random.nextInt(100) / 100.0,
+                null);
+    }
+
+    //    Room room1 = new Room(1, 2, 520, true, 0, null);
 //    Room room2 = new Room(2, 1, 360, 1, true, 5, null);
 //    Room room3 = new Room(3, 4, 1250, 1, false, 3, null);
 //    Room room4 = new Room(4, 1, 400, 1, false, 3, null);
@@ -31,60 +66,9 @@ public class AbstractDAOImpl implements AbstractDAO {
 //    Room room19 = new Room(19, 2, 1000, 2, true, 0, null);
 //    Room room20 = new Room(20, 2, 2500, 2, true, 0, null);
 
-    @Override
-    public List<User> getUserList(){
-        return userList;
-    }
-
-    @Override
-    public Collection<Hotel> getHotels() {
-        List<Hotel> res = new ArrayList<>(hotels.size());
-        Collections.copy(res, hotels);
-        return res;
-    }
-
     Hotel hotel1 = new Hotel(1, "President Hotel", "Kyiv", roomsHotel1);
     Hotel hotel2 = new Hotel(2, "Hyatt", "Odesa", roomsHotel2);
     Hotel hotel3 = new Hotel(3, "Hyatt", "Istanbul", roomsHotel3);
-
-
-    private int roomId = 0;
-    private Random random = new Random();
-
-    private Room generateRoom() {
-        double price = random.nextInt(5000) + random.nextInt(100) / 100.;
-        return new Room(++roomId, random.nextInt(6),
-                price,
-                random.nextBoolean(),
-                random.nextInt((int)(price*.25)) + random.nextInt(100) / 100.,
-                null);
-    }
-
-    @Override
-    public void addUserRoom() {
-        roomsHotel1.add(room1);
-        roomsHotel1.add(room2);
-        roomsHotel1.add(room3);
-        roomsHotel1.add(room4);
-        roomsHotel1.add(room5);
-        roomsHotel1.add(room6);
-        roomsHotel1.add(room7);
-        roomsHotel1.add(room8);
-        roomsHotel1.add(room9);
-        roomsHotel1.add(room10);
-
-        roomsHotel2.add(room11);
-        roomsHotel2.add(room12);
-        roomsHotel2.add(room13);
-        roomsHotel2.add(room14);
-        roomsHotel2.add(room15);
-
-        roomsHotel3.add(room16);
-        roomsHotel3.add(room17);
-        roomsHotel3.add(room18);
-        roomsHotel3.add(room19);
-        roomsHotel3.add(room20);
-    }
 
     @Override
     public void addHotels() {
@@ -94,26 +78,40 @@ public class AbstractDAOImpl implements AbstractDAO {
     }
 
     @Override
-    public void addUserTable() {
-        User user1 = new User(1, "Alex", "Melnikov");
-        User user2 = new User(2, "Olga", "Safonova");
-        User user3 = new User(3, "Oleg", "Petrov");
-        userList.add(user1);
-        userList.add(user2);
-        userList.add(user3);
+    public Collection<Hotel> getHotels() {
+        List<Hotel> res = new ArrayList<>(hotels.size());
+        Collections.copy(res, hotels);
+        return res;
     }
+
+    //    @Override
+//    public void addUserRoom() {
+//        roomsHotel1.add(room1);
+//        roomsHotel1.add(room2);
+//        roomsHotel1.add(room3);
+//        roomsHotel1.add(room4);
+//        roomsHotel1.add(room5);
+//        roomsHotel1.add(room6);
+//        roomsHotel1.add(room7);
+//        roomsHotel1.add(room8);
+//        roomsHotel1.add(room9);
+//        roomsHotel1.add(room10);
+//
+//        roomsHotel2.add(room11);
+//        roomsHotel2.add(room12);
+//        roomsHotel2.add(room13);
+//        roomsHotel2.add(room14);
+//        roomsHotel2.add(room15);
+//
+//        roomsHotel3.add(room16);
+//        roomsHotel3.add(room17);
+//        roomsHotel3.add(room18);
+//        roomsHotel3.add(room19);
+//        roomsHotel3.add(room20);
+//    }
 
    /*@Override
     public void addNewUser(long id, String name, String lastName) {
-        userList.add(); //Parameters are from Main method
+        userList.add();
     }*/
-
-    @Override
-    public Map<String, String> addHotelMap() {
-        Map hotelMap = new HashMap<String, String>();
-        hotelMap.put(hotel1.getCity(), hotel1.getHotelName());
-        hotelMap.put(hotel2.getCity(), hotel2.getHotelName());
-        hotelMap.put(hotel3.getCity(), hotel3.getHotelName());
-        return hotelMap;
-    }
 }
