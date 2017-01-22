@@ -8,6 +8,7 @@ public class Controller {
     AbstractDAO abstractDAOImpl = new AbstractDAOImpl();
 
     private Scanner scanner = new Scanner(System.in);
+    public boolean isLoggedIn = false;
 
     private String getUserInput(String promptMessage, String errorMessage) {
         System.out.println(promptMessage);
@@ -27,37 +28,41 @@ public class Controller {
         String s2 = getUserInput("Please, input your last name...", "Last name can not be left blank. Please, input again...");
 
         List<User> users = abstractDAOImpl
-                .getUserList()
+                .getUsers()
                 .stream()
                 .filter(u -> u.getUserName().equals(s1) && u.getUserLastName().equals(s2))
                 .collect(Collectors.toList());
 
-        System.out.println(users);
-
-        if (users == null) {
+        if (users.isEmpty()) {
             System.out.println("User does not exist. Please, register your account to enable search");
             System.out.println("Redirecting to the registration server...");
+            System.out.println("====================================");
             newUser();
         }
-        if (users != null) {
+        if (!users.isEmpty()) {
             System.out.println("User " + s1 + " " + s2 + " has been logged in.");
+            isLoggedIn = true;
             actionSelect();
         }
     }
 
     void newUser() {
         System.out.println("User's sign up system");
-        System.out.println("Please, enter your name...");
 
         String s1 = getUserInput("Please, input your name...", "Name can not be left blank. Please, input again...");
         String s2 = getUserInput("Please, input your last name...", "Last name can not be left blank. Please, input again...");
 
         User newUser = new User(findNewUserID(), s1, s2); //Creating new User
-        abstractDAOImpl.getUserList().add(newUser);//Adding new User to the user list
+        System.out.println("User's number:" + findNewUserID());
+        abstractDAOImpl.getUsers().add(newUser);//Adding new User to the user list
+        System.out.println(abstractDAOImpl.getUsers());
+        System.out.println("New user " + s1 + " " + s2 + " has been registered successfully!");
+        isLoggedIn = true;
+        actionSelect();
     }
 
     long findNewUserID() {//Used to find the user's max ID in the list
-        int max = abstractDAOImpl.getUserList().size();
+        int max = abstractDAOImpl.getUsers().size();
         return max + 1;
     }
 
@@ -93,7 +98,7 @@ public class Controller {
                 .stream()
                 .filter(m -> m.getHotelName().equals(name))
                 .collect(Collectors.toList());
-       // hotelMap(foundHotels, "hotel");
+        // hotelMap(foundHotels, "hotel");
         return foundHotels;
     }
 
@@ -102,7 +107,7 @@ public class Controller {
                 .stream()
                 .filter(m -> m.getCity().equals(city))
                 .collect(Collectors.toList());
-       // hotelMap(foundHotels, "city");
+        // hotelMap(foundHotels, "city");
         return foundHotels;
     }
 

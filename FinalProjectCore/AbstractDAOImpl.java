@@ -21,16 +21,17 @@ public class AbstractDAOImpl implements AbstractDAO {
     }
 
     @Override
-    public Collection<User> getUsers() {
+    public List<User> getUsers() {
         List<User> res = new ArrayList<>(userList.size());
         Collections.copy(res, userList);
+        System.out.println("New list:"+"\n"+res);
         return res;
     }
 
-    @Override
-    public List<User> getUserList() {
-        return userList;
-    }
+//    @Override
+//    public List<User> getUserList() {
+//        return userList;
+//    }
 
     private int roomId = 0;
     private Random random = new Random();

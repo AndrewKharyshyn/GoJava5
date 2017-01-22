@@ -6,10 +6,8 @@ import java.util.List;
 public interface AbstractDAO {
 
     void addUserTable();
-    Collection<User> getUsers(); //Getting the copy of user list
-    List<User> getUserList();
 
-    // void addNewUser (long id, String name, String lastName);
+    List<User> getUsers(); //Getting the copy of user list
 
     Room generateRoom(); //Generating random rooms
 
