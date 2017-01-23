@@ -6,10 +6,10 @@ import java.util.stream.Collectors;
 public class Controller {
 
     AbstractDAO abstractDAOImpl = new AbstractDAOImpl();
-
     private Scanner scanner = new Scanner(System.in);
-    boolean isLoggedIn = false;
+    boolean isLoggedIn = false; //Global variable for user log in check
 
+    //Method used for scanning input data
     private String getUserInput(String promptMessage, String errorMessage) {
         System.out.println(promptMessage);
         String userInput = scanner.nextLine();
@@ -20,12 +20,14 @@ public class Controller {
         return userInput;
     }
 
+    //Entrance to the system
     void systemEnter() {
-        System.out.println("Welcome to the Hotel Booking System!");
+        System.out.println("Welcome to the Hotel Online Booking System!");
         System.out.println("====================================");
-        String s1 = getUserInput("Please, input your name...", "Name can not be left blank. Please, input again...");
-        String s2 = getUserInput("Please, input your last name...", "Last name can not be left blank. Please, input again...");
+        String s1 = getUserInput("Please, enter your name...", "Name can not be left blank. Please, input again...");
+        String s2 = getUserInput("Please, enter your last name...", "Last name can not be left blank. Please, input again...");
 
+        //Checking if user exists in the system
         List<User> users = abstractDAOImpl.getUsers()
                 .stream()
                 .filter(u -> u.getUserName().equals(s1) && u.getUserLastName().equals(s2))
@@ -39,36 +41,41 @@ public class Controller {
         }
         if (!users.isEmpty()) {
             System.out.println("User " + s1 + " " + s2 + " has been logged in.");
-            isLoggedIn = true;
-            actionSelect();
+            actionSelect(true);
         }
     }
 
+    //Signing up new user (if does not exists yet)
     void newUser() {
         System.out.println("User's sign up system");
 
-        String s1 = getUserInput("Please, input your name...", "Name can not be left blank. Please, input again...");
-        String s2 = getUserInput("Please, input your last name...", "Last name can not be left blank. Please, input again...");
+        String s1 = getUserInput("Please, enter your name...", "Name can not be left blank. Please, input again...");
+        String s2 = getUserInput("Please, enter your last name...", "Last name can not be left blank. Please, input again...");
 
         User newUser = new User(findNewUserID(), s1, s2); //Creating new User
-        System.out.println("User's number:" + findNewUserID());
+
+        //System.out.println("User's number:" + findNewUserID());
         abstractDAOImpl.getUsers().add(newUser);//Adding new User to the user list
-        System.out.println(abstractDAOImpl.getUsers());
+        //System.out.println(abstractDAOImpl.getUsers());
         System.out.println("New user " + s1 + " " + s2 + " has been registered successfully!");
-        isLoggedIn = true;
-        actionSelect();
+        actionSelect(true);
     }
 
-    long findNewUserID() {//Used to find the user's max ID in the list
+    //Used to find the user's max ID in the user list
+    long findNewUserID() {
         int max = abstractDAOImpl.getUsers().size();
         return max + 1;
     }
 
-    void actionSelect() {
-        System.out.println("Please, choose the required search type in menu below:");
-        System.out.println("\t1. Search by hotel name." +
+    //Menu to select further user's search action
+    void actionSelect(boolean isLoggedIn) {
+        logInCheck(true);
+
+        System.out.println("Please, choose the required search type in menu below:" +
+                "\n\t1. Search by hotel name." +
                 "\n\t2. Search hotel by city" +
                 "\n\t3. Search room by parameters");
+
         Integer s = scanner.nextInt();
         switch (s) {
             case 1:
@@ -86,11 +93,12 @@ public class Controller {
                 break;
             default:
                 System.out.println("You have entered incorrect number. Please, retry...");
-                actionSelect();
+                actionSelect(true);
                 break;
         }
     }
 
+    //Searching the hotel by its name
     List<Hotel> findHotelByName(String name) {
         List<Hotel> foundHotels = abstractDAOImpl.getHotels()
                 .stream()
@@ -100,6 +108,7 @@ public class Controller {
         return foundHotels;
     }
 
+    //Searching the hotel by its city
     List<Hotel> findHotelByCity(String city) {
         List<Hotel> foundHotels = abstractDAOImpl.getHotels()
                 .stream()
@@ -109,65 +118,49 @@ public class Controller {
         return foundHotels;
     }
 
-//    Map<String, String> outputMap(List<Hotel> searchRes, String searchType) {
-//
-//        Map<String, String> hotelsMap = searchRes
-//                .stream()
-//                .collect(Collectors.toMap(Hotel::getHotelName, searchType));
-//        return hotelsMap;
-//    }
+    //Creating Map from hotels or cities
+    Map<String, String> outputMap(List<Hotel> searchRes, String searchType) {
 
+        Map<String, String> hotelsMap = searchRes
+                .stream()
+                .collect(Collectors.toMap(, searchType));
+        return hotelsMap;
+    }
+
+    //Booking selected room
     void bookRoom(long roomId, long userId, long hotelId) {
-
 
     }
 
+    //Cancelling reservation of the selected room
     void cancelReservation(long roomId, long userId, long hotelId) {
 
     }
 
-
-    //        System.out.println(params);
-//        System.out.println("To find rooms, please, choose the city...");
-//        Scanner sc = new Scanner(System.in);
-//        String s = sc.nextLine();
-//        List<String> filteredByCity = params
-//                .keySet()
-//                .stream()
-//                .filter(c -> c.equals(s))
-//                .collect(Collectors.toList());
-//        List<Room> foundRooms = abstractDAOImpl.getHotels()
-//                .stream()
-//                .filter(m -> m.getHotelName())
-//                .collect(Collectors.toList());
-//        return foundRooms;
-//
-//        System.out.println(foundRooms);
-//        System.out.println("Please, choose the next step...");
-//        System.out.println("\t1. Book room from the list above." +
-//                "\n\t2. Filter room by parameters.");
-//        Scanner var = new Scanner(System.in);
-//        int select = var.nextInt();
-//        if (select != 1 || select != 2) {
-//            System.out.println("Selected incorrect variant. Please, try again...");
-//        }
+    //Searching rooms by cities or hotels
     List<Room> findRoom(Map<String, String> params) {
         Collection<Hotel> hotels = abstractDAOImpl.getHotels();
         for (Map.Entry<String, String> entry : params.entrySet()) {
             switch (entry.getKey()) {
                 case "city":
-                    hotels.stream().filter(h -> h.getCity().equals(entry.getValue()));
+                    hotels
+                            .stream()
+                            .filter(h -> h.getCity().equals(entry.getValue()))
+                            .collect(Collectors.toList());
                     break;
                 case "hotel":
-                    hotels.stream().filter(h -> h.getHotelName().equals(entry.getValue()));
+                    hotels
+                            .stream()
+                            .filter(h -> h.getHotelName().equals(entry.getValue()))
+                            .collect(Collectors.toList());
                     break;
             }
-
         }
-        //  findRoomByParams();
+        findRoomByParams(Map.Entry);
         return null;
     }
 
+    //Parametrized search of the rooms
     List<Room> findRoomByParams(List<Room> roomList) {
         System.out.println("You can filter rooms by parameters here:");
         System.out.println("Please, enter the required points where necessary:"
@@ -215,7 +208,7 @@ public class Controller {
             }
             if (input.equals("N")) {
                 System.out.println("Thank you for using Book Online System!");
-                System.exit(1);
+                System.exit(0);
             }
         }
     }

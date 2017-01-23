@@ -4,13 +4,15 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class AbstractDAOImpl implements AbstractDAO {
-    List<User> userList = new ArrayList<>();
 
+    //Here are the predefined lists
+    private List<User> userList = new ArrayList<>();
     private List<Room> roomsHotel1 = new ArrayList<>();
     private List<Room> roomsHotel2 = new ArrayList<>();
     private List<Room> roomsHotel3 = new ArrayList<>();
     private List<Hotel> hotels = new ArrayList<>();
 
+    //Adding users to the list
     @Override
     public void addUserTable() {
         User user1 = new User(1, "Alex", "Melnikov");
@@ -21,6 +23,7 @@ public class AbstractDAOImpl implements AbstractDAO {
         userList.add(user3);
     }
 
+    //Copying the user list to other list
     @Override
     public List<User> getUsers() {
         List<User> res = userList
@@ -30,6 +33,7 @@ public class AbstractDAOImpl implements AbstractDAO {
         return res;
     }
 
+    //Creating the random rooms
     private int roomId = 0;
     private Random random = new Random();
 
@@ -64,25 +68,7 @@ public class AbstractDAOImpl implements AbstractDAO {
 //    Room room19 = new Room(19, 2, 1000, 2, true, 0, null);
 //    Room room20 = new Room(20, 2, 2500, 2, true, 0, null);
 
-    Hotel hotel1 = new Hotel(1, "President Hotel", "Kyiv", roomsHotel1);
-    Hotel hotel2 = new Hotel(2, "Hyatt", "Odesa", roomsHotel2);
-    Hotel hotel3 = new Hotel(3, "Hyatt", "Istanbul", roomsHotel3);
-
-    @Override
-    public void addHotels() {
-        hotels.add(hotel1);
-        hotels.add(hotel2);
-        hotels.add(hotel3);
-    }
-
-    @Override
-    public List<Hotel> getHotels() {
-        List<Hotel> res = hotels
-                .stream()
-                .collect(Collectors.toList());
-        return res;
-    }
-
+    //Adding random rooms to the lists
     @Override
     public void addUserRoom() {
         roomsHotel1.add(generateRoom());
@@ -107,6 +93,28 @@ public class AbstractDAOImpl implements AbstractDAO {
         roomsHotel3.add(generateRoom());
         roomsHotel3.add(generateRoom());
         roomsHotel3.add(generateRoom());
+    }
+
+    //Creating hotel objects with lists inside
+    Hotel hotel1 = new Hotel(1, "President Hotel", "Kyiv", roomsHotel1);
+    Hotel hotel2 = new Hotel(2, "Hyatt", "Odesa", roomsHotel2);
+    Hotel hotel3 = new Hotel(3, "Hyatt", "Istanbul", roomsHotel3);
+
+    //Merging hotels into one list
+    @Override
+    public void addHotels() {
+        hotels.add(hotel1);
+        hotels.add(hotel2);
+        hotels.add(hotel3);
+    }
+
+    //Copying hotel lists
+    @Override
+    public List<Hotel> getHotels() {
+        List<Hotel> res = hotels
+                .stream()
+                .collect(Collectors.toList());
+        return res;
     }
 }
 
