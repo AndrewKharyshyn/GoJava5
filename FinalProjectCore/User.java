@@ -20,6 +20,27 @@ public class User {
                 '}';
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        User user = (User) o;
+
+        if (userId != user.userId) return false;
+        if (!userName.equals(user.userName)) return false;
+        return userLastName.equals(user.userLastName);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = (int) (userId ^ (userId >>> 32));
+        result = 31 * result + userName.hashCode();
+        result = 31 * result + userLastName.hashCode();
+        return result;
+    }
+
     public long getUserId() {
         return userId;
     }

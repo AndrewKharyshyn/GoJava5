@@ -15,5 +15,5 @@ public interface AbstractDAO {
 
     void addHotels();
 
-    public Collection<Hotel> getHotels();
+    public List<Hotel> getHotels();
 }

@@ -23,12 +23,10 @@ public class Controller {
     void systemEnter() {
         System.out.println("Welcome to the Hotel Booking System!");
         System.out.println("====================================");
-        System.out.println();
         String s1 = getUserInput("Please, input your name...", "Name can not be left blank. Please, input again...");
         String s2 = getUserInput("Please, input your last name...", "Last name can not be left blank. Please, input again...");
 
-        List<User> users = abstractDAOImpl
-                .getUsers()
+        List<User> users = abstractDAOImpl.getUsers()
                 .stream()
                 .filter(u -> u.getUserName().equals(s1) && u.getUserLastName().equals(s2))
                 .collect(Collectors.toList());

@@ -1,6 +1,7 @@
 package FinalProjectCore;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class AbstractDAOImpl implements AbstractDAO {
     private List<User> userList = new ArrayList<>();
@@ -17,21 +18,15 @@ public class AbstractDAOImpl implements AbstractDAO {
         userList.add(user1);
         userList.add(user2);
         userList.add(user3);
-        System.out.println(userList);
     }
 
     @Override
     public List<User> getUsers() {
-        List<User> res = new ArrayList<>(userList.size());
-        Collections.copy(res, userList);
-        System.out.println("New list:"+"\n"+res);
+        List<User> res = userList
+                .stream()
+                .collect(Collectors.toList());
         return res;
     }
-
-//    @Override
-//    public List<User> getUserList() {
-//        return userList;
-//    }
 
     private int roomId = 0;
     private Random random = new Random();
@@ -79,9 +74,10 @@ public class AbstractDAOImpl implements AbstractDAO {
     }
 
     @Override
-    public Collection<Hotel> getHotels() {
-        List<Hotel> res = new ArrayList<>(hotels.size());
-        Collections.copy(res, hotels);
+    public List<Hotel> getHotels() {
+        List<Hotel> res = hotels
+                .stream()
+                .collect(Collectors.toList());
         return res;
     }
 
