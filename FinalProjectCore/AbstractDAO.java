@@ -10,7 +10,7 @@ public interface AbstractDAO {
 
     Room generateRoom(); //Generating random rooms
 
-    //void addUserRoom();
+    void addUserRoom(); //filling the list with random rooms
 
     void addHotels();
 

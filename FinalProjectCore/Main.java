@@ -5,7 +5,8 @@ public class Main {
 
         Controller controller = new Controller();
         AbstractDAO abstractDAOImpl = new AbstractDAOImpl();
-        // abstractDAOImpl.addUserRoom();
+
+        abstractDAOImpl.addUserRoom();
 
         abstractDAOImpl.addHotels();
 

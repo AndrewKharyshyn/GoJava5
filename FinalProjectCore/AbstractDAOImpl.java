@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 public class AbstractDAOImpl implements AbstractDAO {
     List<User> userList = new ArrayList<>();
+
     private List<Room> roomsHotel1 = new ArrayList<>();
     private List<Room> roomsHotel2 = new ArrayList<>();
     private List<Room> roomsHotel3 = new ArrayList<>();
@@ -20,12 +21,16 @@ public class AbstractDAOImpl implements AbstractDAO {
         userList.add(user3);
     }
 
+    public List<Room> getRoomsHotel1() {
+        return roomsHotel1;
+    }
+
     @Override
     public List<User> getUsers() {
         List<User> res = userList
                 .stream()
                 .collect(Collectors.toList());
-        System.out.println("List:"+res);
+        System.out.println("List:" + res);
         return res;
     }
 
@@ -41,7 +46,7 @@ public class AbstractDAOImpl implements AbstractDAO {
                 null);
     }
 
-    //    Room room1 = new Room(1, 2, 520, true, 0, null);
+    //Room room1 = new Room(1, 2, 520, true, 0, null);
 //    Room room2 = new Room(2, 1, 360, 1, true, 5, null);
 //    Room room3 = new Room(3, 4, 1250, 1, false, 3, null);
 //    Room room4 = new Room(4, 1, 400, 1, false, 3, null);
@@ -82,29 +87,30 @@ public class AbstractDAOImpl implements AbstractDAO {
         return res;
     }
 
-    //    @Override
-//    public void addUserRoom() {
-//        roomsHotel1.add(room1);
-//        roomsHotel1.add(room2);
-//        roomsHotel1.add(room3);
-//        roomsHotel1.add(room4);
-//        roomsHotel1.add(room5);
-//        roomsHotel1.add(room6);
-//        roomsHotel1.add(room7);
-//        roomsHotel1.add(room8);
-//        roomsHotel1.add(room9);
-//        roomsHotel1.add(room10);
-//
-//        roomsHotel2.add(room11);
-//        roomsHotel2.add(room12);
-//        roomsHotel2.add(room13);
-//        roomsHotel2.add(room14);
-//        roomsHotel2.add(room15);
-//
-//        roomsHotel3.add(room16);
-//        roomsHotel3.add(room17);
-//        roomsHotel3.add(room18);
-//        roomsHotel3.add(room19);
-//        roomsHotel3.add(room20);
-//    }
+    @Override
+    public void addUserRoom() {
+        roomsHotel1.add(generateRoom());
+        roomsHotel1.add(generateRoom());
+        roomsHotel1.add(generateRoom());
+        roomsHotel1.add(generateRoom());
+        roomsHotel1.add(generateRoom());
+        roomsHotel1.add(generateRoom());
+        roomsHotel1.add(generateRoom());
+        roomsHotel1.add(generateRoom());
+        roomsHotel1.add(generateRoom());
+        roomsHotel1.add(generateRoom());
+
+        roomsHotel2.add(generateRoom());
+        roomsHotel2.add(generateRoom());
+        roomsHotel2.add(generateRoom());
+        roomsHotel2.add(generateRoom());
+        roomsHotel2.add(generateRoom());
+
+        roomsHotel3.add(generateRoom());
+        roomsHotel3.add(generateRoom());
+        roomsHotel3.add(generateRoom());
+        roomsHotel3.add(generateRoom());
+        roomsHotel3.add(generateRoom());
+    }
 }
+

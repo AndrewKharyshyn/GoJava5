@@ -26,8 +26,7 @@ public class Controller {
         String s1 = getUserInput("Please, input your name...", "Name can not be left blank. Please, input again...");
         String s2 = getUserInput("Please, input your last name...", "Last name can not be left blank. Please, input again...");
 
-        System.out.println("User input:"+abstractDAOImpl.getUsers());
-//        List<User> users = abstractDAOImpl.getUsers()
+        //        List<User> users = abstractDAOImpl.getUsers()
 //                .stream()
 //                .filter(u -> u.getUserName().equals(s1) && u.getUserLastName().equals(s2))
 //                .collect(Collectors.toList());
@@ -111,13 +110,15 @@ public class Controller {
     }
 
     Map<String, String> outputMap(List<Hotel> searchRes, String searchType) {
+
         Map<String, String> hotelsMap = searchRes
                 .stream()
-                .collect(Collectors.toMap(, searchType));
+                .collect(Collectors.toMap(Hotel::getHotelName, searchType));
         return hotelsMap;
     }
 
     void bookRoom(long roomId, long userId, long hotelId) {
+
 
     }
 
@@ -161,33 +162,42 @@ public class Controller {
                     hotels.stream().filter(h -> h.getHotelName().equals(entry.getValue()));
                     break;
             }
+
         }
+        //  findRoomByParams();
         return null;
+    }
 
-//        List<Room> rooms = new ArrayList<>();
-//        hotels.stream().forEach(h -> rooms.addAll(h.getRooms()));
-//        for (Map.Entry<String, String> entry : params.entrySet()) {
-//            switch (entry.getKey()) {
-//                case "city":
-//                    hotels.stream().filter(h -> h.getCity().equals(entry.getValue()));
-//                    break;
-//                case "hotel":
-//                    hotels
-//                            .stream()
-//                            .filter(h -> h.getHotelName().equals(entry.getValue()));
-//                    break;
-//            }
-//        }
-//        return rooms;
+    List<Room> findRoomByParams(List<Room> roomList) {
+        System.out.println("You can filter rooms by parameters here:");
+        System.out.println("Please, enter the required points where necessary:"
+                + "\n\t1. Number of persons."
+                + "\n\t2. Price."
+                + "\n\t3. Additional services in the room (Please, enter 'Y' or 'N')");
+        String s1 = scanner.nextLine(); //persons
+        String s2 = scanner.nextLine();//price
+        String s3 = scanner.nextLine();//services
 
+        int s1Num = Integer.parseInt(s1);
+        int s2Num = Integer.parseInt(s2);
 
-//    List<Room> findRoomByParams(List<Room> roomList) {
-//        System.out.println("You can filter rooms by parameters here:");
-//
-//
-//        return;
-//
-//    }
+        switch (s3) {
+            case "Y":
+                boolean s3Bool = Boolean.parseBoolean("true");
+                break;
+            case "N":
+                s3Bool = Boolean.parseBoolean("false");
+                break;
+        }
+
+        List<Room> finalRes = roomList
+                .stream()
+                .filter(m -> m.getPersons() <= s1Num || s1Num == 0
+                        && m.getPrice() <= s2Num
+                        && m.isHasAdditionalService())
+                .collect(Collectors.toList());
+
+        return null;
     }
 }
 

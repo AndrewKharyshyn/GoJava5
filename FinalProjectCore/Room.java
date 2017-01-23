@@ -13,7 +13,6 @@ public class Room {
         this.roomId = roomId;
         this.persons = persons;
         this.price = price;
-//        this.hotelId = hotelId;
         this.hasAdditionalService = hasAdditionalService;
         this.discount = discount;
         this.userReserved = userReserved;
