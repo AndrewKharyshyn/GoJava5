@@ -21,10 +21,6 @@ public class AbstractDAOImpl implements AbstractDAO {
         userList.add(user3);
     }
 
-    public List<Room> getRoomsHotel1() {
-        return roomsHotel1;
-    }
-
     @Override
     public List<User> getUsers() {
         List<User> res = userList

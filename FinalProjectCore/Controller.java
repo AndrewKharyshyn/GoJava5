@@ -8,7 +8,7 @@ public class Controller {
     AbstractDAO abstractDAOImpl = new AbstractDAOImpl();
 
     private Scanner scanner = new Scanner(System.in);
-    public boolean isLoggedIn = false;
+    boolean isLoggedIn = false;
 
     private String getUserInput(String promptMessage, String errorMessage) {
         System.out.println(promptMessage);
@@ -26,22 +26,22 @@ public class Controller {
         String s1 = getUserInput("Please, input your name...", "Name can not be left blank. Please, input again...");
         String s2 = getUserInput("Please, input your last name...", "Last name can not be left blank. Please, input again...");
 
-        //        List<User> users = abstractDAOImpl.getUsers()
-//                .stream()
-//                .filter(u -> u.getUserName().equals(s1) && u.getUserLastName().equals(s2))
-//                .collect(Collectors.toList());
-//
-//        if (users.isEmpty()) {
-//            System.out.println("User does not exist. Please, register your account to enable search");
-//            System.out.println("Redirecting to the registration server...");
-//            System.out.println("====================================");
-//            newUser();
-//        }
-//        if (!users.isEmpty()) {
-//            System.out.println("User " + s1 + " " + s2 + " has been logged in.");
-//            isLoggedIn = true;
-//            actionSelect();
-//        }
+        List<User> users = abstractDAOImpl.getUsers()
+                .stream()
+                .filter(u -> u.getUserName().equals(s1) && u.getUserLastName().equals(s2))
+                .collect(Collectors.toList());
+
+        if (users.isEmpty()) {
+            System.out.println("User does not exist. Please, register your account to enable search");
+            System.out.println("Redirecting to the registration server...");
+            System.out.println("====================================");
+            newUser();
+        }
+        if (!users.isEmpty()) {
+            System.out.println("User " + s1 + " " + s2 + " has been logged in.");
+            isLoggedIn = true;
+            actionSelect();
+        }
     }
 
     void newUser() {
@@ -96,7 +96,7 @@ public class Controller {
                 .stream()
                 .filter(m -> m.getHotelName().equals(name))
                 .collect(Collectors.toList());
-        // hotelMap(foundHotels, "hotel");
+        //outputMap(foundHotels, "hotel");
         return foundHotels;
     }
 
@@ -105,17 +105,17 @@ public class Controller {
                 .stream()
                 .filter(m -> m.getCity().equals(city))
                 .collect(Collectors.toList());
-        // hotelMap(foundHotels, "city");
+        //outputMap(foundHotels, "city");
         return foundHotels;
     }
 
-    Map<String, String> outputMap(List<Hotel> searchRes, String searchType) {
-
-        Map<String, String> hotelsMap = searchRes
-                .stream()
-                .collect(Collectors.toMap(Hotel::getHotelName, searchType));
-        return hotelsMap;
-    }
+//    Map<String, String> outputMap(List<Hotel> searchRes, String searchType) {
+//
+//        Map<String, String> hotelsMap = searchRes
+//                .stream()
+//                .collect(Collectors.toMap(Hotel::getHotelName, searchType));
+//        return hotelsMap;
+//    }
 
     void bookRoom(long roomId, long userId, long hotelId) {
 
@@ -198,6 +198,26 @@ public class Controller {
                 .collect(Collectors.toList());
 
         return null;
+    }
+
+    void logInCheck(boolean isLoggedIn) {
+        if (!isLoggedIn) {
+            System.out.println("User not registered." +
+                    "\n\tDo you want to continue?" +
+                    "\n\tPress 'Y' to register or press 'N' to exit.");
+            String input = scanner.nextLine();
+            while (input.isEmpty() || !input.equals("N") || !input.equals("Y")) {
+                System.out.println("Please, choose the correct variant");
+                input = scanner.nextLine();
+            }
+            if (input.equals("Y")) {
+                newUser();
+            }
+            if (input.equals("N")) {
+                System.out.println("Thank you for using Book Online System!");
+                System.exit(1);
+            }
+        }
     }
 }
 
