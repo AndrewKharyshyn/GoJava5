@@ -18,6 +18,16 @@ public class Hotel {
         }
     }
 
+        @Override
+    public String toString() {
+        return "Hotel{" +
+                "hotelId=" + hotelId +
+                ", hotelName='" + hotelName + '\'' +
+                ", city='" + city + '\'' +
+                ", rooms=" + rooms +
+                '}';
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -30,16 +40,6 @@ public class Hotel {
         if (!city.equals(hotel.city)) return false;
         return rooms.equals(hotel.rooms);
 
-    }
-
-    @Override
-    public String toString() {
-        return "Hotel{" +
-                "hotelId=" + hotelId +
-                ", hotelName='" + hotelName + '\'' +
-                ", city='" + city + '\'' +
-                ", rooms=" + rooms +
-                '}';
     }
 
     @Override

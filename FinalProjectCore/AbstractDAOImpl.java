@@ -4,7 +4,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class AbstractDAOImpl implements AbstractDAO {
-    private List<User> userList = new ArrayList<>();
+    List<User> userList = new ArrayList<>();
     private List<Room> roomsHotel1 = new ArrayList<>();
     private List<Room> roomsHotel2 = new ArrayList<>();
     private List<Room> roomsHotel3 = new ArrayList<>();
@@ -25,6 +25,7 @@ public class AbstractDAOImpl implements AbstractDAO {
         List<User> res = userList
                 .stream()
                 .collect(Collectors.toList());
+        System.out.println("List:"+res);
         return res;
     }
 
@@ -106,9 +107,4 @@ public class AbstractDAOImpl implements AbstractDAO {
 //        roomsHotel3.add(room19);
 //        roomsHotel3.add(room20);
 //    }
-
-   /*@Override
-    public void addNewUser(long id, String name, String lastName) {
-        userList.add();
-    }*/
 }
