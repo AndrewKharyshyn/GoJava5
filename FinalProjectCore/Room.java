@@ -18,6 +18,52 @@ public class Room {
         this.userReserved = userReserved;
     }
 
+    @Override
+    public String toString() {
+        return "Room{" +
+                "roomId=" + roomId +
+                ", persons=" + persons +
+                ", price=" + price +
+                ", hotel=" + hotel +
+                ", hasAdditionalService=" + hasAdditionalService +
+                ", discount=" + discount +
+                ", userReserved=" + userReserved +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Room room = (Room) o;
+
+        if (roomId != room.roomId) return false;
+        if (persons != room.persons) return false;
+        if (Double.compare(room.price, price) != 0) return false;
+        if (hasAdditionalService != room.hasAdditionalService) return false;
+        if (Double.compare(room.discount, discount) != 0) return false;
+        if (!hotel.equals(room.hotel)) return false;
+        return userReserved != null ? userReserved.equals(room.userReserved) : room.userReserved == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result;
+        long temp;
+        result = (int) (roomId ^ (roomId >>> 32));
+        result = 31 * result + persons;
+        temp = Double.doubleToLongBits(price);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + hotel.hashCode();
+        result = 31 * result + (hasAdditionalService ? 1 : 0);
+        temp = Double.doubleToLongBits(discount);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + (userReserved != null ? userReserved.hashCode() : 0);
+        return result;
+    }
+
     public long getRoomId() {
         return roomId;
     }

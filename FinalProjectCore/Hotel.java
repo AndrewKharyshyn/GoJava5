@@ -51,6 +51,14 @@ public class Hotel {
         return result;
     }
 
+    public List<Room> getRooms() {
+        return rooms;
+    }
+
+    public void setRooms(List<Room> rooms) {
+        this.rooms = rooms;
+    }
+
     public int getHotelId() {
         return hotelId;
     }
@@ -73,13 +81,5 @@ public class Hotel {
 
     public void setCity(String city) {
         this.city = city;
-    }
-
-    public List<Room> getRooms() {
-        return rooms;
-    }
-
-    public void setRooms(List<Room> rooms) {
-        this.rooms = rooms;
     }
 }

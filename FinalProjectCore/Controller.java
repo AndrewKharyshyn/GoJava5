@@ -6,14 +6,14 @@ import java.util.stream.Collectors;
 public class Controller {
 
     AbstractDAO abstractDAOImpl = new AbstractDAOImpl();
-    private Scanner scanner = new Scanner(System.in);
-    boolean isLoggedIn = false; //Global variable for user log in check
+
+    Scanner scanner = new Scanner(System.in);
 
     //Method used for scanning input data
-    private String getUserInput(String promptMessage, String errorMessage) {
+    String getUserInput(String promptMessage, String errorMessage) {
         System.out.println(promptMessage);
         String userInput = scanner.nextLine();
-        while (userInput.isEmpty()) {
+        while (userInput.isEmpty() || userInput.length() < 4) {
             System.out.println(errorMessage);
             userInput = scanner.nextLine();
         }
@@ -22,21 +22,25 @@ public class Controller {
 
     //Entrance to the system
     void systemEnter() {
-        System.out.println("Welcome to the Hotel Online Booking System!");
-        System.out.println("====================================");
-        String s1 = getUserInput("Please, enter your name...", "Name can not be left blank. Please, input again...");
-        String s2 = getUserInput("Please, enter your last name...", "Last name can not be left blank. Please, input again...");
+        abstractDAOImpl.addUserRoom();
+        abstractDAOImpl.addHotels();
+        abstractDAOImpl.addUserTable();
+
+        System.out.println("Welcome to the Hotel Online Booking System!" +
+                "\n====================================");
+        String s1 = getUserInput("\tPlease, enter your name...", "\tField is blank or less then 4 symbols. Please, input again...");
+        String s2 = getUserInput("\tPlease, enter your last name...", "\tField is blank or less then 4 symbols. Please, input again...");
 
         //Checking if user exists in the system
         List<User> users = abstractDAOImpl.getUsers()
                 .stream()
-                .filter(u -> u.getUserName().equals(s1) && u.getUserLastName().equals(s2))
+                .filter(u -> u.getUserName().contains(s1) && u.getUserLastName().contains(s2))
                 .collect(Collectors.toList());
 
         if (users.isEmpty()) {
-            System.out.println("User does not exist. Please, register your account to enable search");
-            System.out.println("Redirecting to the registration server...");
-            System.out.println("====================================");
+            System.out.println("User does not exist. Please, register your account to enable search" +
+                    "\n\tRedirecting to the registration server..." +
+                    "\n\t====================================");
             newUser();
         }
         if (!users.isEmpty()) {
@@ -47,17 +51,18 @@ public class Controller {
 
     //Signing up new user (if does not exists yet)
     void newUser() {
-        System.out.println("User's sign up system");
+        System.out.println("\tUser's sign up system" +
+                "\n\t====================================");
 
-        String s1 = getUserInput("Please, enter your name...", "Name can not be left blank. Please, input again...");
-        String s2 = getUserInput("Please, enter your last name...", "Last name can not be left blank. Please, input again...");
+        String s1 = getUserInput("\tPlease, enter your name...", "\tField is blank or less then 4 symbols. Please, input again...");
+        String s2 = getUserInput("\tPlease, enter your last name...", "\tField is blank or less then 4 symbols. Please, input again...");
 
         User newUser = new User(findNewUserID(), s1, s2); //Creating new User
 
-        //System.out.println("User's number:" + findNewUserID());
-        abstractDAOImpl.getUsers().add(newUser);//Adding new User to the user list
-        //System.out.println(abstractDAOImpl.getUsers());
-        System.out.println("New user " + s1 + " " + s2 + " has been registered successfully!");
+        abstractDAOImpl.addingNewUser(newUser);//Adding new User to the user list
+        System.out.println("New user " + s1 + " " + s2 + " has been registered successfully!" +
+                "\n\tNow you can proceed to Room Search System..." +
+                "\n");
         actionSelect(true);
     }
 
@@ -69,32 +74,35 @@ public class Controller {
 
     //Menu to select further user's search action
     void actionSelect(boolean isLoggedIn) {
-        logInCheck(true);
 
-        System.out.println("Please, choose the required search type in menu below:" +
-                "\n\t1. Search by hotel name." +
-                "\n\t2. Search hotel by city" +
-                "\n\t3. Search room by parameters");
-
-        Integer s = scanner.nextInt();
-        switch (s) {
-            case 1:
-                System.out.println("Please, enter the hotel name...");
-                String s1 = scanner.nextLine();
-                findHotelByName(s1);
-                break;
-            case 2:
-                System.out.println("Please, enter the city...");
-                String s2 = scanner.nextLine();
-                findHotelByCity(s2);
-                break;
-            case 3:
-                //findRoom(abstractDAOImpl.addHotelMap());
-                break;
-            default:
-                System.out.println("You have entered incorrect number. Please, retry...");
-                actionSelect(true);
-                break;
+        System.out.println("Please, choose the required search type in the menu below:" +
+                "\n\t1. Search by hotel name;" +
+                "\n\t2. Search hotel by city;" +
+                "\n\t3. Search room by parameters;");
+        try {
+            Integer s = scanner.nextInt();
+            switch (s) {
+                case 1:
+                    String s1 = getUserInput("Please, enter the hotel name...", "The field is blank or less than 4 symbols. Please, enter your request.");
+                    findHotelByName(s1);
+                    break;
+                case 2:
+                    String s2 = getUserInput("Please, enter the city name...", "The field is blank or less than 4 symbols. Please, enter your request.");
+                    findHotelByCity(s2);
+                    break;
+                case 3:
+                    //findRoom(abstractDAOImpl.addHotelMap());
+                    break;
+                default:
+                    System.out.println("You have entered incorrect number. Please, retry...");
+                    actionSelect(true);
+                    break;
+            }
+        } catch (InputMismatchException e) {
+            System.err.println("You have to enter choice from 1 to 3. Retry selection...");
+            actionSelect(true);
+        } catch (Exception e) {
+            System.err.println("XP");
         }
     }
 
@@ -102,29 +110,41 @@ public class Controller {
     List<Hotel> findHotelByName(String name) {
         List<Hotel> foundHotels = abstractDAOImpl.getHotels()
                 .stream()
-                .filter(m -> m.getHotelName().equals(name))
+                .filter(m -> m.getHotelName().contains(name))
                 .collect(Collectors.toList());
-        //outputMap(foundHotels, "hotel");
+        if (foundHotels.isEmpty()) {
+            System.out.println("Hotels with name '" + name + "' not found. Please, check spelling and retry.");
+            actionSelect(true);
+        }
+        if (!foundHotels.isEmpty()) {
+            System.out.println("List of hotels available:");
+            foundHotels.forEach(c -> System.out.println("Hotel '"+c.getHotelName()+"'"));
+            System.out.println("Please, press Enter to show rooms in this hotel.");
+            String enterKey = scanner.nextLine();
+            System.out.println("Rooms available in this hotel:");
+            foundHotels.forEach(c -> System.out.println("Room No:"+c.getRooms()+"'"));
+        }
         return foundHotels;
     }
 
-    //Searching the hotel by its city
+    //Searching hotels by its city
     List<Hotel> findHotelByCity(String city) {
         List<Hotel> foundHotels = abstractDAOImpl.getHotels()
                 .stream()
-                .filter(m -> m.getCity().equals(city))
+                .filter(m -> m.getCity().contains(city))
                 .collect(Collectors.toList());
-        //outputMap(foundHotels, "city");
+        if (foundHotels.isEmpty()) {
+            System.out.println("Hotels in '" + city + "' not found. Please, check information and retry.");
+            actionSelect(true);
+        }
+        if (!foundHotels.isEmpty()) {
+            System.out.println("List of hotels available in '" + city + "'");
+            foundHotels.forEach(c -> System.out.println("Hotel '"+c.getHotelName()+"'"));
+            System.out.println("Please, press ENTER to show rooms in this hotel.");
+            String enterKey = scanner.nextLine();
+            System.out.println("Rooms in '" + city + "':");
+        }
         return foundHotels;
-    }
-
-    //Creating Map from hotels or cities
-    Map<String, String> outputMap(List<Hotel> searchRes, String searchType) {
-
-        Map<String, String> hotelsMap = searchRes
-                .stream()
-                .collect(Collectors.toMap(, searchType));
-        return hotelsMap;
     }
 
     //Booking selected room
@@ -156,7 +176,7 @@ public class Controller {
                     break;
             }
         }
-        findRoomByParams(Map.Entry);
+        //   findRoomByParams(Map.Entry);
         return null;
     }
 

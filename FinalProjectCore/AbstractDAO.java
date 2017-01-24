@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface AbstractDAO {
 
-    void addUserTable();
+    void addUserTable();//Adding users to the list
 
     List<User> getUsers(); //Getting the copy of user list
 
@@ -15,4 +15,6 @@ public interface AbstractDAO {
     void addHotels();
 
     List<Hotel> getHotels();
+
+    void addingNewUser(User user);
 }

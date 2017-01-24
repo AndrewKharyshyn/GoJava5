@@ -12,7 +12,7 @@ public class AbstractDAOImpl implements AbstractDAO {
     private List<Room> roomsHotel3 = new ArrayList<>();
     private List<Hotel> hotels = new ArrayList<>();
 
-    //Adding users to the list
+    //Adding predefined users to the list
     @Override
     public void addUserTable() {
         User user1 = new User(1, "Alex", "Melnikov");
@@ -26,11 +26,13 @@ public class AbstractDAOImpl implements AbstractDAO {
     //Copying the user list to other list
     @Override
     public List<User> getUsers() {
-        List<User> res = userList
-                .stream()
-                .collect(Collectors.toList());
-        System.out.println("List:" + res);
+        ArrayList<User> res = new ArrayList<User>(userList);
         return res;
+    }
+
+    @Override
+    public void addingNewUser(User user) {
+        userList.add(user);
     }
 
     //Creating the random rooms
@@ -111,9 +113,7 @@ public class AbstractDAOImpl implements AbstractDAO {
     //Copying hotel lists
     @Override
     public List<Hotel> getHotels() {
-        List<Hotel> res = hotels
-                .stream()
-                .collect(Collectors.toList());
+        ArrayList<Hotel> res = new ArrayList<Hotel>(hotels);
         return res;
     }
 }
