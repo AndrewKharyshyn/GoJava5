@@ -8,7 +8,7 @@ public interface AbstractDAO {
 
     List<User> getUsers(); //Getting the copy of user list
 
-    Room generateRoom(); //Generating random rooms
+    Room generateRoom(int hotelID); //Generating random rooms
 
     void addUserRoom(); //filling the list with random rooms
 
@@ -18,3 +18,4 @@ public interface AbstractDAO {
 
     void addingNewUser(User user);
 }
+

@@ -4,15 +4,16 @@ public class Room {
     private long roomId;
     private int persons;
     private double price;
-    private Hotel hotel;
+    private int hotelID;
     private boolean hasAdditionalService;
     private double discount;
     private User userReserved;
 
-    public Room(long roomId, int persons, double price, boolean hasAdditionalService, double discount, User userReserved) {
+    public Room(long roomId, int persons, double price, int hotelID, boolean hasAdditionalService, double discount, User userReserved) {
         this.roomId = roomId;
         this.persons = persons;
         this.price = price;
+        this.hotelID = hotelID;
         this.hasAdditionalService = hasAdditionalService;
         this.discount = discount;
         this.userReserved = userReserved;
@@ -21,14 +22,11 @@ public class Room {
     @Override
     public String toString() {
         return "Room{" +
-                "roomId=" + roomId +
-                ", persons=" + persons +
-                ", price=" + price +
-                ", hotel=" + hotel +
-                ", hasAdditionalService=" + hasAdditionalService +
-                ", discount=" + discount +
-                ", userReserved=" + userReserved +
-                '}';
+                "Room Number = " + roomId +
+                ", Persons = " + persons +
+                ", Price (original) = " + price +
+                ", AdditionalServices = " + hasAdditionalService +
+                ", Discount = " + discount + "%";
     }
 
     @Override
@@ -41,9 +39,9 @@ public class Room {
         if (roomId != room.roomId) return false;
         if (persons != room.persons) return false;
         if (Double.compare(room.price, price) != 0) return false;
+        if (hotelID != room.hotelID) return false;
         if (hasAdditionalService != room.hasAdditionalService) return false;
         if (Double.compare(room.discount, discount) != 0) return false;
-        if (!hotel.equals(room.hotel)) return false;
         return userReserved != null ? userReserved.equals(room.userReserved) : room.userReserved == null;
 
     }
@@ -56,7 +54,7 @@ public class Room {
         result = 31 * result + persons;
         temp = Double.doubleToLongBits(price);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
-        result = 31 * result + hotel.hashCode();
+        result = 31 * result + hotelID;
         result = 31 * result + (hasAdditionalService ? 1 : 0);
         temp = Double.doubleToLongBits(discount);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
@@ -88,12 +86,12 @@ public class Room {
         this.price = price;
     }
 
-    public Hotel getHotel() {
-        return hotel;
+    public int getHotelID() {
+        return hotelID;
     }
 
-    public void setHotel(Hotel hotel) {
-        this.hotel = hotel;
+    public void setHotelID(int hotelID) {
+        this.hotelID = hotelID;
     }
 
     public boolean isHasAdditionalService() {

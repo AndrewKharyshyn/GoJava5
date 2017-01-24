@@ -1,7 +1,6 @@
 package FinalProjectCore;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class AbstractDAOImpl implements AbstractDAO {
 
@@ -39,12 +38,13 @@ public class AbstractDAOImpl implements AbstractDAO {
     private int roomId = 0;
     private Random random = new Random();
 
-    public Room generateRoom() {
-        double price = random.nextInt(5000) + random.nextInt(100) / 100.;
-        return new Room(++roomId, random.nextInt(6),
-                price,
+    @Override
+    public Room generateRoom(int hotelID) {
+        double price = random.nextInt(5001);
+        return new Room(++roomId, random.nextInt(5),
+                price, hotelID,
                 random.nextBoolean(),
-                random.nextInt((int) (price * 0.25)) + random.nextInt(100) / 100.0,
+                random.nextDouble(0.25),
                 null);
     }
 
@@ -73,28 +73,28 @@ public class AbstractDAOImpl implements AbstractDAO {
     //Adding random rooms to the lists
     @Override
     public void addUserRoom() {
-        roomsHotel1.add(generateRoom());
-        roomsHotel1.add(generateRoom());
-        roomsHotel1.add(generateRoom());
-        roomsHotel1.add(generateRoom());
-        roomsHotel1.add(generateRoom());
-        roomsHotel1.add(generateRoom());
-        roomsHotel1.add(generateRoom());
-        roomsHotel1.add(generateRoom());
-        roomsHotel1.add(generateRoom());
-        roomsHotel1.add(generateRoom());
+        roomsHotel1.add(generateRoom(1));
+        roomsHotel1.add(generateRoom(1));
+        roomsHotel1.add(generateRoom(1));
+        roomsHotel1.add(generateRoom(1));
+        roomsHotel1.add(generateRoom(1));
+        roomsHotel1.add(generateRoom(1));
+        roomsHotel1.add(generateRoom(1));
+        roomsHotel1.add(generateRoom(1));
+        roomsHotel1.add(generateRoom(1));
+        roomsHotel1.add(generateRoom(1));
 
-        roomsHotel2.add(generateRoom());
-        roomsHotel2.add(generateRoom());
-        roomsHotel2.add(generateRoom());
-        roomsHotel2.add(generateRoom());
-        roomsHotel2.add(generateRoom());
+        roomsHotel2.add(generateRoom(2));
+        roomsHotel2.add(generateRoom(2));
+        roomsHotel2.add(generateRoom(2));
+        roomsHotel2.add(generateRoom(2));
+        roomsHotel2.add(generateRoom(2));
 
-        roomsHotel3.add(generateRoom());
-        roomsHotel3.add(generateRoom());
-        roomsHotel3.add(generateRoom());
-        roomsHotel3.add(generateRoom());
-        roomsHotel3.add(generateRoom());
+        roomsHotel3.add(generateRoom(3));
+        roomsHotel3.add(generateRoom(3));
+        roomsHotel3.add(generateRoom(3));
+        roomsHotel3.add(generateRoom(3));
+        roomsHotel3.add(generateRoom(3));
     }
 
     //Creating hotel objects with lists inside

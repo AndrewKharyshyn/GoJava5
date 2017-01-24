@@ -118,11 +118,12 @@ public class Controller {
         }
         if (!foundHotels.isEmpty()) {
             System.out.println("List of hotels available:");
-            foundHotels.forEach(c -> System.out.println("Hotel '"+c.getHotelName()+"'"));
-            System.out.println("Please, press Enter to show rooms in this hotel.");
+            foundHotels.forEach(c -> System.out.println("Hotel '" + c.getHotelName() + "'" + " /" + c.getCity() + "/"));
+
+            System.out.println("Please, press Enter to show rooms in this hotel...");
             String enterKey = scanner.nextLine();
+
             System.out.println("Rooms available in this hotel:");
-            foundHotels.forEach(c -> System.out.println("Room No:"+c.getRooms()+"'"));
         }
         return foundHotels;
     }
@@ -139,10 +140,13 @@ public class Controller {
         }
         if (!foundHotels.isEmpty()) {
             System.out.println("List of hotels available in '" + city + "'");
-            foundHotels.forEach(c -> System.out.println("Hotel '"+c.getHotelName()+"'"));
-            System.out.println("Please, press ENTER to show rooms in this hotel.");
+            foundHotels.forEach(c -> System.out.println("Hotel '" + c.getHotelName() + "'"));
+
+            System.out.println("Please, press ENTER to show rooms in these hotels...");
             String enterKey = scanner.nextLine();
+
             System.out.println("Rooms in '" + city + "':");
+            foundHotels.forEach(c -> System.out.println("Room number:" + c.getRooms()));
         }
         return foundHotels;
     }
