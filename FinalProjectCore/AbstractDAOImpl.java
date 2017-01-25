@@ -4,12 +4,19 @@ import java.util.*;
 
 public class AbstractDAOImpl implements AbstractDAO {
 
+    @Override
+    public List<User> getUserList() {
+        return userList;
+    }
+
     //Here are the predefined lists
     private List<User> userList = new ArrayList<>();
     private List<Room> roomsHotel1 = new ArrayList<>();
     private List<Room> roomsHotel2 = new ArrayList<>();
     private List<Room> roomsHotel3 = new ArrayList<>();
     private List<Hotel> hotels = new ArrayList<>();
+
+    User defaultUser = new User(0, "noName", "noLastName");
 
     //Adding predefined users to the list
     @Override
@@ -44,13 +51,13 @@ public class AbstractDAOImpl implements AbstractDAO {
         return new Room(++roomId, random.nextInt(5),
                 price, hotelID,
                 random.nextBoolean(),
-                random.nextDouble(),
-                null);
+                random.nextInt(25),
+                defaultUser);
     }
 
-    //Adding random rooms to the lists by loop
+    //Adding random rooms to the lists with loop
     @Override
-    public void addUserRoom() {
+    public void addGeneratedRooms() {
         for (int i = 0; i < 10; i++) {
             roomsHotel1.add(generateRoom(1));
             roomsHotel2.add(generateRoom(2));
@@ -77,5 +84,17 @@ public class AbstractDAOImpl implements AbstractDAO {
         ArrayList<Hotel> res = new ArrayList<Hotel>(hotels);
         return res;
     }
+
+    @Override
+    public List<Room> allRoomsDB() {
+        addGeneratedRooms();
+        List<Room> roomsDatabase = new ArrayList<>();
+        roomsDatabase.addAll(roomsHotel1);
+        roomsDatabase.addAll(roomsHotel2);
+        roomsDatabase.addAll(roomsHotel3);
+        return null;
+    }
+
+
 }
 

@@ -7,6 +7,8 @@ public class Controller {
 
     AbstractDAO abstractDAOImpl = new AbstractDAOImpl();
 
+    long userLoggedInID;
+
     Scanner scanner = new Scanner(System.in);
 
     //Method used for scanning input data
@@ -22,19 +24,19 @@ public class Controller {
 
     //Entrance to the system
     void systemEnter() {
-        abstractDAOImpl.addUserRoom();
+        abstractDAOImpl.allRoomsDB();
         abstractDAOImpl.addHotels();
         abstractDAOImpl.addUsersToDB();
 
         System.out.println("Welcome to the Hotel Online Booking System!" +
                 "\n====================================");
-        String s1 = getUserInput("\tPlease, enter your name...", "\tField is blank or less then 4 symbols. Please, input again...");
-        String s2 = getUserInput("\tPlease, enter your last name...", "\tField is blank or less then 4 symbols. Please, input again...");
+        String name = getUserInput("\tPlease, enter your name...", "\tField is blank or less then 4 symbols. Please, input again...");
+        String lastName = getUserInput("\tPlease, enter your last name...", "\tField is blank or less then 4 symbols. Please, input again...");
 
         //Checking if user exists in the system
         List<User> users = abstractDAOImpl.getUsers()
                 .stream()
-                .filter(u -> u.getUserName().contains(s1) && u.getUserLastName().contains(s2))
+                .filter(u -> u.getUserName().contains(name) && u.getUserLastName().contains(lastName))
                 .collect(Collectors.toList());
 
         if (users.isEmpty()) {
@@ -44,7 +46,8 @@ public class Controller {
             createNewUser();
         }
         if (!users.isEmpty()) {
-            System.out.println("User " + s1 + " " + s2 + " has been logged in.");
+            System.out.println("User " + name + " " + lastName + " has been logged in.");
+            userLoggedInID = users.stream().findFirst().get().getUserId();
             actionSelect(true);
         }
     }
@@ -54,15 +57,16 @@ public class Controller {
         System.out.println("\tUser's sign up system" +
                 "\n\t====================================");
 
-        String s1 = getUserInput("\tPlease, enter your name...", "\tField is blank or less then 4 symbols. Please, input again...");
-        String s2 = getUserInput("\tPlease, enter your last name...", "\tField is blank or less then 4 symbols. Please, input again...");
+        String name = getUserInput("\tPlease, enter your name...", "\tField is blank or less then 4 symbols. Please, input again...");
+        String lastName = getUserInput("\tPlease, enter your last name...", "\tField is blank or less then 4 symbols. Please, input again...");
 
-        User newUser = new User(findNewUserID(), s1, s2); //Creating new User
+        User newUser = new User(findNewUserID(), name, lastName); //Creating new User
 
         abstractDAOImpl.addingNewUser(newUser);//Adding new User to the user list
-        System.out.println("New user " + s1 + " " + s2 + " has been registered successfully!" +
+        System.out.println("New user " + name + " " + lastName + " has been registered successfully!" +
                 "\n\tNow you can proceed to Room Search System..." +
                 "\n");
+        userLoggedInID = findNewUserID();
         actionSelect(true);
     }
 
@@ -82,12 +86,12 @@ public class Controller {
             Integer s = scanner.nextInt();
             switch (s) {
                 case 1:
-                    String s1 = getUserInput("Please, enter the hotel name...", "The field is blank or less than 4 symbols. Please, enter your request.");
-                    findHotelByName(s1);
+                    String hotelName = getUserInput("Please, enter the hotel name...", "The field is blank or less than 4 symbols. Please, enter your request.");
+                    findHotelByName(hotelName);
                     break;
                 case 2:
-                    String s2 = getUserInput("Please, enter the city name...", "The field is blank or less than 4 symbols. Please, enter your request.");
-                    findHotelByCity(s2);
+                    String cityName = getUserInput("Please, enter the city name...", "The field is blank or less than 4 symbols. Please, enter your request.");
+                    findHotelByCity(cityName);
                     break;
                 default:
                     System.out.println("You have entered incorrect number. Please, retry...");
@@ -97,8 +101,6 @@ public class Controller {
         } catch (InputMismatchException e) {
             System.err.println("You have to enter choice from 1 to 3. Retry selection...");
             actionSelect(true);
-        } catch (Exception e) {
-            System.err.println("XP");
         }
     }
 
@@ -116,11 +118,19 @@ public class Controller {
             System.out.println("List of hotels available:");
             foundHotels.forEach(c -> System.out.println("Hotel '" + c.getHotelName() + "'" + " /" + c.getCity() + "/"));
 
-            System.out.println("Please, press Enter to show rooms in this hotel...");
+            System.out.println("Please, press Enter to show rooms in chosen city(-ies)...");
             String enterKey = scanner.nextLine();
 
-            System.out.println("Rooms available in this hotel:");
-            foundHotels.forEach(c -> System.out.println("Rooms:" + c.getRooms()));
+            System.out.println("Rooms available in hotel(s):");
+
+            List<Room> selectedRooms = new ArrayList<>();
+            foundHotels.forEach(c -> selectedRooms.addAll(c.getRooms()));
+
+            selectedRooms.forEach(c -> System.out.println("Room number: " + c.getRoomId() +
+                    ", Persons: " + c.getPersons() + ", Original price: " + (int)c.getPrice() +
+                    ", Price (including discount "+(int)c.getDiscount()+ "%): " + Math.round(c.getPrice() - (c.getPrice() * c.getDiscount()/100)) +
+                    ", Hotel: " + c.getHotelID()));
+            variantSelect(selectedRooms);
         }
         return foundHotels;
     }
@@ -139,76 +149,115 @@ public class Controller {
             System.out.println("List of hotels available in " + city);
             foundHotels.forEach(c -> System.out.println("Hotel '" + c.getHotelName() + "'"));
 
-            System.out.println("Please, press ENTER to show rooms in these hotels...");
+            System.out.println("Please, press ENTER to show rooms in hotel(s)...");
             String enterKey = scanner.nextLine();
 
             System.out.println("Rooms in '" + city + "':");
-            foundHotels.forEach(c -> System.out.println("Rooms:" + c.getRooms()));
 
-            variantSelect();
+            List<Room> selectedRooms = new ArrayList<>();
+            foundHotels.forEach(c -> selectedRooms.addAll(c.getRooms()));
+
+            selectedRooms.forEach(c -> System.out.println("Room number: " + c.getRoomId() +
+                    ", Persons: " + c.getPersons() + ", Original price: " + (int)c.getPrice() +
+                    ", Price (including discount "+(int)c.getDiscount()+ "%): " + Math.round(c.getPrice() - (c.getPrice() * c.getDiscount()/100)) +
+                    ", Hotel: " + c.getHotelID()));
+            variantSelect(selectedRooms);
 
             Map<String, String> byCityParam = new HashMap<>();
-            byCityParam.put("byCity", )
+            //byCityParam.put("byCity", );
         }
         return foundHotels;
     }
 
-    private void variantSelect() {
+    private void variantSelect(List<Room> filteredList) {
         System.out.println("Do you want to book the room by number?" +
                 "\n\t1. Book the room" +
                 "\n\t2. Go to search by parameters");
-        Integer input = scanner.nextInt();
-        while (input == null || input != 1 || input != 2) {
-            System.out.println("Please, choose the correct variant!");
-            input = scanner.nextInt();
-        }
-        switch (input) {
+        Integer varInput = scanner.nextInt();
+//        while (varInput != 1) {
+//            System.out.println("Please, choose the correct variant!");
+//            varInput = scanner.nextInt();
+//        }
+        switch (varInput) {
             case 1:
-                System.out.println("Enter room number from the list");
+                System.out.println("Enter room number from the list above");
                 Integer roomNumberInput = scanner.nextInt();
                 while (roomNumberInput == null) {
-                    System.out.println("Please, choose the room from the list");
+                    System.out.println("Please, choose the correct room number from the list");
                     roomNumberInput = scanner.nextInt();
                 }
-                if ()
-                bookRoom();
+                int searchID = roomNumberInput;
+                if (filteredList.stream().anyMatch(roomNo -> roomNo.getRoomId() == searchID)) {
+                    long hotelNo = filteredList
+                            .stream()
+                            .findFirst()
+                            .get()
+                            .getHotelID();
+                    System.out.println("Room " + searchID + " has been chosen. Booking...");
+                    bookRoom(searchID, userLoggedInID, hotelNo);
+                }
             case 2:
-                findRoomByParams();
+                //   findRoomByParams();
         }
-
     }
 
     //Booking selected room
     private void bookRoom(long roomId, long userId, long hotelId) {
 
+        User registeredUser = abstractDAOImpl.getUserList().get(abstractDAOImpl.getUserList().size());
+        abstractDAOImpl.allRoomsDB().forEach(c -> {
+            if (c.getRoomId() == roomId && c.getHotelID() == hotelId) {
+                if (c.getUserReserved().getUserId() == userId) {
+                    c.setUserReserved(registeredUser);
+                }
+            }
+        });
+
+        System.out.println("Room " + roomId + "has been booked successfully!" +
+                "\n\tIf you want to cancel reservation, enter 'C'" +
+                "\n\t\tPress E to exit");
+
+        String selection = scanner.nextLine();
+        while (selection.isEmpty() || !selection.equals("C") || !selection.equals("E")) {
+            System.out.println("Please, choose the correct action variant");
+            selection = scanner.nextLine();
+        }
+        switch (selection) {
+            case "C":
+                cancelReservation(roomId, userId, hotelId);
+            case "E":
+                System.out.println("Thank you for using Book Online System!");
+                System.exit(0);
+        }
     }
 
     //Cancelling reservation of the selected room
+
     private void cancelReservation(long roomId, long userId, long hotelId) {
 
     }
 
     //Searching rooms by cities or hotels
-    private List<Room> findRooms(Map<String, String> params) {
-        for (Map.Entry<String, String> entry : params.entrySet()) {
-            switch (entry.getKey()) {
-                case "byCity":
-                    hotels
-                            .stream()
-                            .filter(h -> h.getCity().equals(entry.getValue()))
-                            .collect(Collectors.toList());
-                    break;
-                case "byHotel":
-                    hotels
-                            .stream()
-                            .filter(h -> h.getHotelName().equals(entry.getValue()))
-                            .collect(Collectors.toList());
-                    break;
-            }
-        }
-        //   findRoomByParams(Map.Entry);
-        return null;
-    }
+//    private List<Room> findRooms(Map<String, String> params) {
+//        for (Map.Entry<String, String> entry : params.entrySet()) {
+//            switch (entry.getKey()) {
+//                case "byCity":
+//                    hotels
+//                            .stream()
+//                            .filter(h -> h.getCity().equals(entry.getValue()))
+//                            .collect(Collectors.toList());
+//                    break;
+//                case "byHotel":
+//                    hotels
+//                            .stream()
+//                            .filter(h -> h.getHotelName().equals(entry.getValue()))
+//                            .collect(Collectors.toList());
+//                    break;
+//            }
+//        }
+//        //   findRoomByParams(Map.Entry);
+//        return null;
+//    }
 
     //Parametrized search of the rooms
     private Map<String, String> findRoomByParams(List<Room> roomList) {
@@ -253,12 +302,12 @@ public class Controller {
                 System.out.println("Please, choose the correct variant!");
                 input = scanner.nextLine();
             }
-            if (input.equals("Y")) {
-                createNewUser();
-            }
-            if (input.equals("N")) {
-                System.out.println("Thank you for using Book Online System!");
-                System.exit(0);
+            switch (input) {
+                case "Y":
+                    createNewUser();
+                case "N":
+                    System.out.println("Thank you for using Book Online System!");
+                    System.exit(0);
             }
         }
     }
