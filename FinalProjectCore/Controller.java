@@ -38,7 +38,7 @@ public class Controller {
         //Checking if user exists in the system DB already
         List<User> users = abstractDAOImpl.getUsers()
                 .stream()
-                .filter(u -> u.getUserName().contains(name) && u.getUserLastName().contains(lastName))
+                .filter(u -> u.getUserName().equalsIgnoreCase(name) && u.getUserLastName().equalsIgnoreCase(lastName))
                 .collect(Collectors.toList());
 
         if (users.isEmpty()) {
@@ -57,7 +57,7 @@ public class Controller {
     //Signing up new user (if does not exist yet)
     private void createNewUser() {
         System.out.println("\tUser's sign up system" +
-                "\n\t====================================");
+                "\n");
 
         String name = getUserInput(nameRequest, blankFieldErr);
         String lastName = getUserInput(lastNameRequest, blankFieldErr);
@@ -84,19 +84,20 @@ public class Controller {
                 "\n\t1. Search by hotel name;" +
                 "\n\t2. Search hotel by city.");
 
-        Integer input = scanner.nextInt();
+        String input = scanner.nextLine();
+        while (input.isEmpty() || !input.equalsIgnoreCase("1") || !input.equalsIgnoreCase("2")) {
+            System.out.println("Please, choose the correct menu!");
+            input = scanner.nextLine();
+        }
+
         switch (input) {
-            case 1:
+            case "1":
                 String hotelName = getUserInput("Please, enter the hotel name...", blankFieldErr);
                 findHotelByName(hotelName);
                 break;
-            case 2:
+            case "2":
                 String cityName = getUserInput("Please, enter the city name...", blankFieldErr);
                 findHotelByCity(cityName);
-                break;
-            default:
-                System.out.println("You have entered incorrect number. Please, retry...");
-                actionSelect(true);
                 break;
         }
     }
@@ -181,8 +182,8 @@ public class Controller {
                 "\n\t2. Go to search by parameters.");
         String input = scanner.nextLine();
 
-        while (input.isEmpty() || !input.equals("1") || !input.equals("2")) {
-            System.out.println("Please, choose the correct variant!");
+        while (input.isEmpty() || !input.equalsIgnoreCase("1") || !input.equalsIgnoreCase("2")) {
+            System.out.println("Please, choose the correct menu!");
             input = scanner.nextLine();
         }
 
@@ -194,6 +195,7 @@ public class Controller {
                 while (roomNumberInput.isEmpty()) {
                     System.out.println("Please, choose the correct room number from the list");
                     roomNumberInput = scanner.nextLine();
+
                 }
 
                 int searchRoomID = Integer.parseInt(roomNumberInput);//variable must be final before anyMatch()
@@ -212,8 +214,10 @@ public class Controller {
                 if (filteredList.stream().noneMatch(roomNo -> roomNo.getRoomId() == searchRoomID)) {
                     System.out.println("There is no such room number in the list.");
                 }
+                break;
             case "2":
                 //   findRoomByParams();
+                break;
         }
     }
 
@@ -237,7 +241,7 @@ public class Controller {
                 "\n\t\tPress 'E' to exit");
 
         String selection = scanner.nextLine();
-        while (selection.isEmpty() || !selection.equals("C") || !selection.equals("E")) {
+        while (selection.isEmpty() || !selection.equalsIgnoreCase("C") || !selection.equalsIgnoreCase("E")) {
             System.out.println("Please, choose the correct action variant");
             selection = scanner.nextLine();
         }
@@ -307,7 +311,7 @@ public class Controller {
                     "\n\tPress 'Y' to register or press 'N' to exit.");
             String input = scanner.nextLine();
 
-            while (input.isEmpty() || !input.equals("N") || !input.equals("Y")) {
+            while (input.isEmpty() || !input.equalsIgnoreCase("N") || !input.equalsIgnoreCase("Y")) {
                 System.out.println("Please, choose the correct variant!");
                 input = scanner.nextLine();
             }
@@ -315,9 +319,11 @@ public class Controller {
             switch (input) {
                 case "Y":
                     createNewUser();
+                    break;
                 case "N":
                     System.out.println("Thank you for using Book Online System!");
                     System.exit(0);
+                    break;
             }
         }
     }
