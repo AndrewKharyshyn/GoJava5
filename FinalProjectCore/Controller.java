@@ -118,17 +118,16 @@ public class Controller {
             System.out.println("List of hotels available:");
             foundHotels.forEach(c -> System.out.println("Hotel '" + c.getHotelName() + "'" + " /" + c.getCity() + "/"));
 
-            System.out.println("Please, press Enter to show rooms in chosen city(-ies)...");
+            System.out.println("Please, press Enter to show rooms in chosen hotel(s)...");
             String enterKey = scanner.nextLine();
-
-            System.out.println("Rooms available in hotel(s):");
 
             List<Room> selectedRooms = new ArrayList<>();
             foundHotels.forEach(c -> selectedRooms.addAll(c.getRooms()));
 
+            System.out.println("Rooms available in hotel(s):");
             selectedRooms.forEach(c -> System.out.println("Room number: " + c.getRoomId() +
-                    ", Persons: " + c.getPersons() + ", Original price: " + (int)c.getPrice() +
-                    ", Price (including discount "+(int)c.getDiscount()+ "%): " + Math.round(c.getPrice() - (c.getPrice() * c.getDiscount()/100)) +
+                    ", Persons: " + c.getPersons() + ", Original price: " + (int) c.getPrice() +
+                    ", Price (including discount " + (int) c.getDiscount() + "%): " + Math.round(c.getPrice() - (c.getPrice() * c.getDiscount() / 100)) +
                     ", Hotel: " + c.getHotelID()));
             variantSelect(selectedRooms);
         }
@@ -149,7 +148,7 @@ public class Controller {
             System.out.println("List of hotels available in " + city);
             foundHotels.forEach(c -> System.out.println("Hotel '" + c.getHotelName() + "'"));
 
-            System.out.println("Please, press ENTER to show rooms in hotel(s)...");
+            System.out.println("Please, press ENTER to show all rooms in city...");
             String enterKey = scanner.nextLine();
 
             System.out.println("Rooms in '" + city + "':");
@@ -158,8 +157,8 @@ public class Controller {
             foundHotels.forEach(c -> selectedRooms.addAll(c.getRooms()));
 
             selectedRooms.forEach(c -> System.out.println("Room number: " + c.getRoomId() +
-                    ", Persons: " + c.getPersons() + ", Original price: " + (int)c.getPrice() +
-                    ", Price (including discount "+(int)c.getDiscount()+ "%): " + Math.round(c.getPrice() - (c.getPrice() * c.getDiscount()/100)) +
+                    ", Persons: " + c.getPersons() + ", Original price: " + (int) c.getPrice() +
+                    ", Price (including discount " + (int) c.getDiscount() + "%): " + Math.round(c.getPrice() - (c.getPrice() * c.getDiscount() / 100)) +
                     ", Hotel: " + c.getHotelID()));
             variantSelect(selectedRooms);
 
@@ -226,7 +225,8 @@ public class Controller {
             case "C":
                 cancelReservation(roomId, userId, hotelId);
             case "E":
-                System.out.println("Thank you for using Book Online System!");
+                System.out.println("Thank you for using Book Online System!" +
+                        "=========================================");
                 System.exit(0);
         }
     }
@@ -234,7 +234,10 @@ public class Controller {
     //Cancelling reservation of the selected room
 
     private void cancelReservation(long roomId, long userId, long hotelId) {
-
+        System.out.println("You have cancelled the reservation of room " + roomId +
+                "\nThank you for using Book Online System!" +
+                "=========================================");
+        System.exit(0);
     }
 
     //Searching rooms by cities or hotels
