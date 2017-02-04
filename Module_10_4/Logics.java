@@ -13,26 +13,21 @@ public class Logics {
         debtList.add(guest1);
         debtList.add(guest2);
         System.out.println("You are searching for debts of 'Oleksandr Krasnov'...");
-        try {
-            boolean result = debtList.stream()
-                    .anyMatch(s -> s.getName().equals("Oleksandr") && s.getSurname().equals("Krasnov"));
-            if (result) {
-                System.out.println("Search successful!");
-            }
-            if (!result) {
-                throw new NameNotFoundException();
-            }
-        } catch (NameNotFoundException e) {
-            System.err.println("The requested name not found");
-
+        boolean result = debtList.stream()
+                .anyMatch(s -> s.getName().equals("Oleksandr") && s.getSurname().equals("Krasnov"));
+        if (result) {
+            System.out.println("Search successful!");
+        }
+        if (!result) {
+            throw new NameNotFoundException();
         }
     }
 
-    public void f() throws TestException{
+    public void f() throws TestException {
         try {
             g();
         } catch (NameNotFoundException e) {
-            throw new TestException("this is TEST");
+            throw new TestException("This is an exception");
         }
     }
 }

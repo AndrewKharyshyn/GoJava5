@@ -1,8 +1,13 @@
 package Module_10_4;
 
 public class MainClass {
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args) {
         Logics logics = new Logics();
-        logics.f();
+        try{
+            logics.f();
+        }
+        catch (TestException e){
+            System.err.println(e.getMessage());
+        }
     }
 }
