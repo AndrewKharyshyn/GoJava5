@@ -17,6 +17,7 @@ public class ContentReplacer {
             String textString = "I am learning Java Core SE";
             writer.write(textString);
             writer.flush();
+            writer.close();
             fileReader();
 
         } catch (IOException e) {
@@ -26,7 +27,7 @@ public class ContentReplacer {
 
     void fileReader() throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader("D:\\newFile2.txt"));
-        String fileText = "";
+        String fileText;
         try {
             while ((fileText = reader.readLine()) != null) {
                 System.out.print("This is the original file content: " + "\n" + fileText + "\n");
@@ -47,7 +48,7 @@ public class ContentReplacer {
 
         String searchText = map.entrySet().stream().findFirst().get().getKey();
         String newText = map.entrySet().stream().findFirst().get().getValue();
-        String line = "";
+        String line;
         StringBuilder stringBuilder = new StringBuilder();
         while ((line = buffReader.readLine()) != null) {
             line = line.replace(searchText, newText);
