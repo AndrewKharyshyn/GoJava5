@@ -51,7 +51,6 @@ public class Replacer {
         while ((line = buffReader.readLine()) != null) {
             line = line.replace(searchText, newText);
             stringBuilder.append(line);
-            System.out.println(line);
         }
         buffReader.close();
         FileWriter buffWriter = new FileWriter(file);
