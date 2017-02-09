@@ -6,6 +6,7 @@ import java.util.Map;
 
 public class Replacer {
     File file = new File("D:\\newFile.txt");
+
     void createFile() throws IOException {
         try {
             if (file.exists()) {
@@ -41,17 +42,23 @@ public class Replacer {
     }
 
     String replacer(Map<String, String> map) throws IOException {
-        BufferedReader reader = new BufferedReader(new FileReader(file));
-        FileWriter writer = new FileWriter(file);
-        String line;
-        while ((line = reader.readLine()) != null) {
-                String editedLine = line.replaceAll(map.entrySet().stream().findFirst().get().getKey(), map.entrySet().stream().findFirst().get().getValue());
-                writer.write(editedLine);
+        BufferedReader buffReader = new BufferedReader(new FileReader(file));
+
+        String searchText = map.entrySet().stream().findFirst().get().getKey();
+        String newText = map.entrySet().stream().findFirst().get().getValue();
+        String line = "";
+        StringBuilder stringBuilder = new StringBuilder();
+        while ((line = buffReader.readLine()) != null) {
+            line = line.replace(searchText, newText);
+            stringBuilder.append(line);
+            System.out.println(line);
         }
-        reader.close();
-        writer.flush();
-        writer.close();
-        System.out.println("Here is the replaced value:" + "\n" + map.entrySet().stream().findFirst().get().getValue());
+        buffReader.close();
+        FileWriter buffWriter = new FileWriter(file);
+        buffWriter.write(stringBuilder.toString());
+        buffWriter.close();
+
+        System.out.println("Changes saved to file. Here is the replaced value:" + "\n'" + newText + "'");
         return line;
     }
 }
