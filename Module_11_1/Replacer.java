@@ -12,7 +12,7 @@ public class Replacer {
             if (file.exists()) {
                 throw new IOException();
             }
-            FileWriter writer = new FileWriter("D:\\newFile.txt", false);
+            FileWriter writer = new FileWriter(file, false);
             String textString = "I am learning Java Core SE";
             writer.write(textString);
             writer.flush();
@@ -24,7 +24,7 @@ public class Replacer {
     }
 
     void fileReader() throws IOException {
-        BufferedReader reader = new BufferedReader(new FileReader("D:\\newFile.txt"));
+        BufferedReader reader = new BufferedReader(new FileReader(file));
         String fileText;
         try {
             while ((fileText = reader.readLine()) != null) {
